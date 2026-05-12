@@ -1,0 +1,488 @@
+{"clip_eps": 0.2, "event": "config", "group_size": 4, "kappa": 1.0, "lr": 1e-06, "max_new_tokens": 128, "model_name": "Qwen/Qwen3.5-2B", "policy_device": "cuda:0", "reference_device": "cuda:1", "rollouts_per_step": 2, "task_source": "lbpp_rust", "tau": 0.5, "time": "2026-05-12T02:26:43", "train_batch_size": 1, "weight_decay": 0.1}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 383], "step": 0, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/068", "time": "2026-05-12T02:26:46"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 0, "task": "lbpp/rust/068", "time": "2026-05-12T02:26:46"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 390], "step": 0, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/056", "time": "2026-05-12T02:26:48"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 0, "task": "lbpp/rust/056", "time": "2026-05-12T02:26:48"}
+{"event": "step_return", "return_sum": 0.0, "step": 0, "time": "2026-05-12T02:26:48"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 0, "time": "2026-05-12T02:26:48"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 380], "step": 1, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/131", "time": "2026-05-12T02:26:50"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 1, "task": "lbpp/rust/131", "time": "2026-05-12T02:26:50"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 491], "step": 1, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/014", "time": "2026-05-12T02:26:52"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 1, "task": "lbpp/rust/014", "time": "2026-05-12T02:26:52"}
+{"event": "step_return", "return_sum": 0.0, "step": 1, "time": "2026-05-12T02:26:52"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 1, "time": "2026-05-12T02:26:52"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 479], "step": 2, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/005", "time": "2026-05-12T02:26:54"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 2, "task": "lbpp/rust/005", "time": "2026-05-12T02:26:54"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 321], "step": 2, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/141", "time": "2026-05-12T02:26:56"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 2, "task": "lbpp/rust/141", "time": "2026-05-12T02:26:56"}
+{"event": "step_return", "return_sum": 0.0, "step": 2, "time": "2026-05-12T02:26:56"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 2, "time": "2026-05-12T02:26:56"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 453], "step": 3, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/079", "time": "2026-05-12T02:26:58"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 3, "task": "lbpp/rust/079", "time": "2026-05-12T02:26:58"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 483], "step": 3, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/153", "time": "2026-05-12T02:27:00"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 3, "task": "lbpp/rust/153", "time": "2026-05-12T02:27:00"}
+{"event": "step_return", "return_sum": 0.0, "step": 3, "time": "2026-05-12T02:27:00"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 3, "time": "2026-05-12T02:27:00"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 338], "step": 4, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/029", "time": "2026-05-12T02:27:02"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 4, "task": "lbpp/rust/029", "time": "2026-05-12T02:27:02"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 427], "step": 4, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/140", "time": "2026-05-12T02:27:04"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 4, "task": "lbpp/rust/140", "time": "2026-05-12T02:27:04"}
+{"event": "step_return", "return_sum": 0.0, "step": 4, "time": "2026-05-12T02:27:04"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 4, "time": "2026-05-12T02:27:04"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 467], "step": 5, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/012", "time": "2026-05-12T02:27:06"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 5, "task": "lbpp/rust/012", "time": "2026-05-12T02:27:06"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 321], "step": 5, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/058", "time": "2026-05-12T02:27:08"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 5, "task": "lbpp/rust/058", "time": "2026-05-12T02:27:08"}
+{"event": "step_return", "return_sum": 0.0, "step": 5, "time": "2026-05-12T02:27:08"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 5, "time": "2026-05-12T02:27:08"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 395], "step": 6, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/030", "time": "2026-05-12T02:27:10"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 6, "task": "lbpp/rust/030", "time": "2026-05-12T02:27:10"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 379], "step": 6, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/142", "time": "2026-05-12T02:27:12"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 6, "task": "lbpp/rust/142", "time": "2026-05-12T02:27:12"}
+{"event": "step_return", "return_sum": 0.0, "step": 6, "time": "2026-05-12T02:27:12"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 6, "time": "2026-05-12T02:27:12"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 406], "step": 7, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/100", "time": "2026-05-12T02:27:14"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 7, "task": "lbpp/rust/100", "time": "2026-05-12T02:27:14"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 415], "step": 7, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/044", "time": "2026-05-12T02:27:16"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 7, "task": "lbpp/rust/044", "time": "2026-05-12T02:27:16"}
+{"event": "step_return", "return_sum": 0.0, "step": 7, "time": "2026-05-12T02:27:16"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 7, "time": "2026-05-12T02:27:16"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 372], "step": 8, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/063", "time": "2026-05-12T02:27:18"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 8, "task": "lbpp/rust/063", "time": "2026-05-12T02:27:18"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 467], "step": 8, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/048", "time": "2026-05-12T02:27:20"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 8, "task": "lbpp/rust/048", "time": "2026-05-12T02:27:20"}
+{"event": "step_return", "return_sum": 0.0, "step": 8, "time": "2026-05-12T02:27:20"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 8, "time": "2026-05-12T02:27:20"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 328], "step": 9, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/094", "time": "2026-05-12T02:27:22"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 9, "task": "lbpp/rust/094", "time": "2026-05-12T02:27:22"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 370], "step": 9, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/102", "time": "2026-05-12T02:27:24"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 9, "task": "lbpp/rust/102", "time": "2026-05-12T02:27:24"}
+{"event": "step_return", "return_sum": 0.0, "step": 9, "time": "2026-05-12T02:27:24"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 9, "time": "2026-05-12T02:27:24"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 419], "step": 10, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/055", "time": "2026-05-12T02:27:26"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 10, "task": "lbpp/rust/055", "time": "2026-05-12T02:27:26"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 430], "step": 10, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/158", "time": "2026-05-12T02:27:28"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 10, "task": "lbpp/rust/158", "time": "2026-05-12T02:27:28"}
+{"event": "step_return", "return_sum": 0.0, "step": 10, "time": "2026-05-12T02:27:28"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 10, "time": "2026-05-12T02:27:28"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 371], "step": 11, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/031", "time": "2026-05-12T02:27:30"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 11, "task": "lbpp/rust/031", "time": "2026-05-12T02:27:30"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 445], "step": 11, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/151", "time": "2026-05-12T02:27:32"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 11, "task": "lbpp/rust/151", "time": "2026-05-12T02:27:32"}
+{"event": "step_return", "return_sum": 0.0, "step": 11, "time": "2026-05-12T02:27:32"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 11, "time": "2026-05-12T02:27:32"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 423], "step": 12, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/047", "time": "2026-05-12T02:27:34"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 12, "task": "lbpp/rust/047", "time": "2026-05-12T02:27:34"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 391], "step": 12, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/000", "time": "2026-05-12T02:27:36"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 12, "task": "lbpp/rust/000", "time": "2026-05-12T02:27:36"}
+{"event": "step_return", "return_sum": 0.0, "step": 12, "time": "2026-05-12T02:27:36"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 12, "time": "2026-05-12T02:27:36"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 430], "step": 13, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/113", "time": "2026-05-12T02:27:38"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 13, "task": "lbpp/rust/113", "time": "2026-05-12T02:27:38"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 406], "step": 13, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/093", "time": "2026-05-12T02:27:40"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 13, "task": "lbpp/rust/093", "time": "2026-05-12T02:27:40"}
+{"event": "step_return", "return_sum": 0.0, "step": 13, "time": "2026-05-12T02:27:40"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 13, "time": "2026-05-12T02:27:40"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 330], "step": 14, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/127", "time": "2026-05-12T02:27:42"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 14, "task": "lbpp/rust/127", "time": "2026-05-12T02:27:42"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 397], "step": 14, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/024", "time": "2026-05-12T02:27:44"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 14, "task": "lbpp/rust/024", "time": "2026-05-12T02:27:44"}
+{"event": "step_return", "return_sum": 0.0, "step": 14, "time": "2026-05-12T02:27:44"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 14, "time": "2026-05-12T02:27:44"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 466], "step": 15, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/103", "time": "2026-05-12T02:27:46"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 15, "task": "lbpp/rust/103", "time": "2026-05-12T02:27:46"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 346], "step": 15, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/041", "time": "2026-05-12T02:27:48"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 15, "task": "lbpp/rust/041", "time": "2026-05-12T02:27:48"}
+{"event": "step_return", "return_sum": 0.0, "step": 15, "time": "2026-05-12T02:27:48"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 15, "time": "2026-05-12T02:27:48"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 449], "step": 16, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/147", "time": "2026-05-12T02:27:50"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 16, "task": "lbpp/rust/147", "time": "2026-05-12T02:27:50"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 420], "step": 16, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/071", "time": "2026-05-12T02:27:52"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 16, "task": "lbpp/rust/071", "time": "2026-05-12T02:27:52"}
+{"event": "step_return", "return_sum": 0.0, "step": 16, "time": "2026-05-12T02:27:52"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 16, "time": "2026-05-12T02:27:52"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 406], "step": 17, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/067", "time": "2026-05-12T02:27:54"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 17, "task": "lbpp/rust/067", "time": "2026-05-12T02:27:54"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 350], "step": 17, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/109", "time": "2026-05-12T02:27:56"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 17, "task": "lbpp/rust/109", "time": "2026-05-12T02:27:56"}
+{"event": "step_return", "return_sum": 0.0, "step": 17, "time": "2026-05-12T02:27:56"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 17, "time": "2026-05-12T02:27:56"}
+{"code_like": 1, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.25, "rewards": [0.0, 0.0, 0.0, 0.25], "sequence_shape": [4, 406], "step": 18, "syntax_valid": 1, "tagged": 1, "task": "lbpp/rust/118", "time": "2026-05-12T02:28:03"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 4, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 364], "step": 18, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/104", "time": "2026-05-12T02:28:06"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 18, "task": "lbpp/rust/104", "time": "2026-05-12T02:28:06"}
+{"event": "step_return", "return_sum": 0.25, "step": 18, "time": "2026-05-12T02:28:06"}
+{"dgpo_score": 1.0184050552197732e-05, "epoch": 0, "event": "update", "grad_norm": 18.625, "loss": 0.5032539367675781, "step": 18, "time": "2026-05-12T02:28:06"}
+{"dgpo_score": 6.352009222609922e-05, "epoch": 0, "event": "update", "grad_norm": 41.25, "loss": -1.4948638677597046, "step": 18, "time": "2026-05-12T02:28:07"}
+{"dgpo_score": 9.730717283673584e-05, "epoch": 0, "event": "update", "grad_norm": 20.0, "loss": 0.4958708882331848, "step": 18, "time": "2026-05-12T02:28:08"}
+{"dgpo_score": 4.442687350092456e-05, "epoch": 0, "event": "update", "grad_norm": 40.0, "loss": 0.5010825395584106, "step": 18, "time": "2026-05-12T02:28:08"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 967], "step": 19, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/025", "time": "2026-05-12T02:28:11"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 19, "task": "lbpp/rust/025", "time": "2026-05-12T02:28:11"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 852], "step": 19, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/117", "time": "2026-05-12T02:28:13"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 19, "task": "lbpp/rust/117", "time": "2026-05-12T02:28:13"}
+{"event": "step_return", "return_sum": 0.0, "step": 19, "time": "2026-05-12T02:28:13"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 19, "time": "2026-05-12T02:28:13"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 502], "step": 20, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/157", "time": "2026-05-12T02:28:15"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 20, "task": "lbpp/rust/157", "time": "2026-05-12T02:28:15"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 550], "step": 20, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/032", "time": "2026-05-12T02:28:17"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 20, "task": "lbpp/rust/032", "time": "2026-05-12T02:28:17"}
+{"event": "step_return", "return_sum": 0.0, "step": 20, "time": "2026-05-12T02:28:17"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 20, "time": "2026-05-12T02:28:17"}
+{"code_like": 1, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.25, "rewards": [0.0, 0.0, 0.25, 0.0], "sequence_shape": [4, 371], "step": 21, "syntax_valid": 1, "tagged": 1, "task": "lbpp/rust/006", "time": "2026-05-12T02:28:24"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 4, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 525], "step": 21, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/054", "time": "2026-05-12T02:28:27"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 21, "task": "lbpp/rust/054", "time": "2026-05-12T02:28:27"}
+{"event": "step_return", "return_sum": 0.25, "step": 21, "time": "2026-05-12T02:28:27"}
+{"dgpo_score": 9.612805115466472e-06, "epoch": 0, "event": "update", "grad_norm": 18.875, "loss": 0.501482367515564, "step": 21, "time": "2026-05-12T02:28:28"}
+{"dgpo_score": 2.8447684599086642e-05, "epoch": 0, "event": "update", "grad_norm": 69.5, "loss": -1.5015987157821655, "step": 21, "time": "2026-05-12T02:28:28"}
+{"dgpo_score": 4.37923263234552e-05, "epoch": 0, "event": "update", "grad_norm": 26.5, "loss": 0.5033010244369507, "step": 21, "time": "2026-05-12T02:28:29"}
+{"dgpo_score": 5.392217281041667e-05, "epoch": 0, "event": "update", "grad_norm": 17.375, "loss": 0.49993234872817993, "step": 21, "time": "2026-05-12T02:28:30"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 333], "step": 22, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/004", "time": "2026-05-12T02:28:32"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 22, "task": "lbpp/rust/004", "time": "2026-05-12T02:28:32"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 353], "step": 22, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/049", "time": "2026-05-12T02:28:34"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 22, "task": "lbpp/rust/049", "time": "2026-05-12T02:28:34"}
+{"event": "step_return", "return_sum": 0.0, "step": 22, "time": "2026-05-12T02:28:34"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 22, "time": "2026-05-12T02:28:34"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 386], "step": 23, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/007", "time": "2026-05-12T02:28:36"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 23, "task": "lbpp/rust/007", "time": "2026-05-12T02:28:36"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 401], "step": 23, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/002", "time": "2026-05-12T02:28:38"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 23, "task": "lbpp/rust/002", "time": "2026-05-12T02:28:38"}
+{"event": "step_return", "return_sum": 0.0, "step": 23, "time": "2026-05-12T02:28:38"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 23, "time": "2026-05-12T02:28:38"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 453], "step": 24, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/078", "time": "2026-05-12T02:28:40"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 24, "task": "lbpp/rust/078", "time": "2026-05-12T02:28:40"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 668], "step": 24, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/037", "time": "2026-05-12T02:28:42"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 24, "task": "lbpp/rust/037", "time": "2026-05-12T02:28:42"}
+{"event": "step_return", "return_sum": 0.0, "step": 24, "time": "2026-05-12T02:28:42"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 24, "time": "2026-05-12T02:28:42"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 486], "step": 25, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/105", "time": "2026-05-12T02:28:44"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 25, "task": "lbpp/rust/105", "time": "2026-05-12T02:28:44"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 427], "step": 25, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/045", "time": "2026-05-12T02:28:46"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 25, "task": "lbpp/rust/045", "time": "2026-05-12T02:28:46"}
+{"event": "step_return", "return_sum": 0.0, "step": 25, "time": "2026-05-12T02:28:46"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 25, "time": "2026-05-12T02:28:46"}
+{"code_like": 1, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.05000000074505806, "rewards": [0.05000000074505806, 0.0, 0.0, 0.0], "sequence_shape": [4, 319], "step": 26, "syntax_valid": 0, "tagged": 1, "task": "lbpp/rust/052", "time": "2026-05-12T02:28:48"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 4, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 420], "step": 26, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/060", "time": "2026-05-12T02:28:51"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 26, "task": "lbpp/rust/060", "time": "2026-05-12T02:28:51"}
+{"event": "step_return", "return_sum": 0.05000000074505806, "step": 26, "time": "2026-05-12T02:28:51"}
+{"dgpo_score": 8.832127059577033e-05, "epoch": 0, "event": "update", "grad_norm": 113.0, "loss": -1.4959841966629028, "step": 26, "time": "2026-05-12T02:28:51"}
+{"dgpo_score": 8.541425631847233e-05, "epoch": 0, "event": "update", "grad_norm": 21.375, "loss": 0.5014635324478149, "step": 26, "time": "2026-05-12T02:28:52"}
+{"dgpo_score": 1.685297320364043e-05, "epoch": 0, "event": "update", "grad_norm": 22.375, "loss": 0.4990203380584717, "step": 26, "time": "2026-05-12T02:28:52"}
+{"dgpo_score": 4.474200613913126e-05, "epoch": 0, "event": "update", "grad_norm": 22.125, "loss": 0.49870041012763977, "step": 26, "time": "2026-05-12T02:28:53"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 366], "step": 27, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/097", "time": "2026-05-12T02:28:55"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 27, "task": "lbpp/rust/097", "time": "2026-05-12T02:28:55"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 465], "step": 27, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/065", "time": "2026-05-12T02:28:57"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 27, "task": "lbpp/rust/065", "time": "2026-05-12T02:28:57"}
+{"event": "step_return", "return_sum": 0.0, "step": 27, "time": "2026-05-12T02:28:57"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 27, "time": "2026-05-12T02:28:57"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 552], "step": 28, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/148", "time": "2026-05-12T02:28:59"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 28, "task": "lbpp/rust/148", "time": "2026-05-12T02:28:59"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 363], "step": 28, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/075", "time": "2026-05-12T02:29:01"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 28, "task": "lbpp/rust/075", "time": "2026-05-12T02:29:01"}
+{"event": "step_return", "return_sum": 0.0, "step": 28, "time": "2026-05-12T02:29:01"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 28, "time": "2026-05-12T02:29:01"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 393], "step": 29, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/081", "time": "2026-05-12T02:29:03"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 29, "task": "lbpp/rust/081", "time": "2026-05-12T02:29:03"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 350], "step": 29, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/101", "time": "2026-05-12T02:29:05"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 29, "task": "lbpp/rust/101", "time": "2026-05-12T02:29:05"}
+{"event": "step_return", "return_sum": 0.0, "step": 29, "time": "2026-05-12T02:29:05"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 29, "time": "2026-05-12T02:29:05"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 391], "step": 30, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/086", "time": "2026-05-12T02:29:07"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 30, "task": "lbpp/rust/086", "time": "2026-05-12T02:29:07"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 327], "step": 30, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/144", "time": "2026-05-12T02:29:09"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 30, "task": "lbpp/rust/144", "time": "2026-05-12T02:29:09"}
+{"event": "step_return", "return_sum": 0.0, "step": 30, "time": "2026-05-12T02:29:09"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 30, "time": "2026-05-12T02:29:09"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 430], "step": 31, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/128", "time": "2026-05-12T02:29:11"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 31, "task": "lbpp/rust/128", "time": "2026-05-12T02:29:11"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 332], "step": 31, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/087", "time": "2026-05-12T02:29:13"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 31, "task": "lbpp/rust/087", "time": "2026-05-12T02:29:13"}
+{"event": "step_return", "return_sum": 0.0, "step": 31, "time": "2026-05-12T02:29:13"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 31, "time": "2026-05-12T02:29:13"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 546], "step": 32, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/064", "time": "2026-05-12T02:29:16"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 32, "task": "lbpp/rust/064", "time": "2026-05-12T02:29:16"}
+{"code_like": 1, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.05000000074505806, "rewards": [0.0, 0.0, 0.05000000074505806, 0.0], "sequence_shape": [4, 360], "step": 32, "syntax_valid": 0, "tagged": 1, "task": "lbpp/rust/150", "time": "2026-05-12T02:29:18"}
+{"event": "step_return", "return_sum": 0.05000000074505806, "step": 32, "time": "2026-05-12T02:29:19"}
+{"dgpo_score": 4.914698365610093e-05, "epoch": 0, "event": "update", "grad_norm": 16.625, "loss": 0.5006053447723389, "step": 32, "time": "2026-05-12T02:29:19"}
+{"dgpo_score": 0.00011550573981367052, "epoch": 0, "event": "update", "grad_norm": 14.375, "loss": 0.49951037764549255, "step": 32, "time": "2026-05-12T02:29:20"}
+{"dgpo_score": 0.0001471028954256326, "epoch": 0, "event": "update", "grad_norm": 96.5, "loss": -1.4993687868118286, "step": 32, "time": "2026-05-12T02:29:20"}
+{"dgpo_score": 0.00013757412671111524, "epoch": 0, "event": "update", "grad_norm": 24.375, "loss": 0.49955034255981445, "step": 32, "time": "2026-05-12T02:29:21"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 494], "step": 33, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/106", "time": "2026-05-12T02:29:23"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 33, "task": "lbpp/rust/106", "time": "2026-05-12T02:29:23"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 561], "step": 33, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/046", "time": "2026-05-12T02:29:25"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 33, "task": "lbpp/rust/046", "time": "2026-05-12T02:29:25"}
+{"event": "step_return", "return_sum": 0.0, "step": 33, "time": "2026-05-12T02:29:25"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 33, "time": "2026-05-12T02:29:25"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 464], "step": 34, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/092", "time": "2026-05-12T02:29:28"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 34, "task": "lbpp/rust/092", "time": "2026-05-12T02:29:28"}
+{"code_like": 2, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.5, "rewards": [0.25, 0.0, 0.25, 0.0], "sequence_shape": [4, 311], "step": 34, "syntax_valid": 2, "tagged": 2, "task": "lbpp/rust/134", "time": "2026-05-12T02:29:38"}
+{"event": "step_return", "return_sum": 0.5, "step": 34, "time": "2026-05-12T02:29:39"}
+{"dgpo_score": 0.0005283793434500694, "epoch": 0, "event": "update", "grad_norm": 76.0, "loss": -0.8628712892532349, "step": 34, "time": "2026-05-12T02:29:40"}
+{"dgpo_score": 0.000553963182028383, "epoch": 0, "event": "update", "grad_norm": 63.0, "loss": -0.8666515946388245, "step": 34, "time": "2026-05-12T02:29:40"}
+{"dgpo_score": 0.0002559159474913031, "epoch": 0, "event": "update", "grad_norm": 48.75, "loss": 0.8667542934417725, "step": 34, "time": "2026-05-12T02:29:41"}
+{"dgpo_score": 0.00015626703680027276, "epoch": 0, "event": "update", "grad_norm": 43.5, "loss": 0.8641438484191895, "step": 34, "time": "2026-05-12T02:29:41"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 406], "step": 35, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/080", "time": "2026-05-12T02:29:44"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 35, "task": "lbpp/rust/080", "time": "2026-05-12T02:29:44"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 425], "step": 35, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/132", "time": "2026-05-12T02:29:46"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 35, "task": "lbpp/rust/132", "time": "2026-05-12T02:29:46"}
+{"event": "step_return", "return_sum": 0.0, "step": 35, "time": "2026-05-12T02:29:46"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 35, "time": "2026-05-12T02:29:46"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 468], "step": 36, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/089", "time": "2026-05-12T02:29:48"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 36, "task": "lbpp/rust/089", "time": "2026-05-12T02:29:48"}
+{"code_like": 1, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 1.0, "rewards": [0.0, 0.0, 0.0, 1.0], "sequence_shape": [4, 333], "step": 36, "syntax_valid": 1, "tagged": 1, "task": "lbpp/rust/110", "time": "2026-05-12T02:29:54"}
+{"event": "step_return", "return_sum": 1.0, "step": 36, "time": "2026-05-12T02:29:55"}
+{"dgpo_score": 0.0001225885353051126, "epoch": 0, "event": "update", "grad_norm": 22.625, "loss": 0.5002478361129761, "step": 36, "time": "2026-05-12T02:29:56"}
+{"dgpo_score": 0.00010460209887241945, "epoch": 0, "event": "update", "grad_norm": 22.625, "loss": 0.4995226562023163, "step": 36, "time": "2026-05-12T02:29:56"}
+{"dgpo_score": 8.82468739291653e-05, "epoch": 0, "event": "update", "grad_norm": 31.625, "loss": -1.4987202882766724, "step": 36, "time": "2026-05-12T02:29:57"}
+{"dgpo_score": 0.00012193639122415334, "epoch": 0, "event": "update", "grad_norm": 21.125, "loss": 0.5000640153884888, "step": 36, "time": "2026-05-12T02:29:57"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 349], "step": 37, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/001", "time": "2026-05-12T02:30:00"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 37, "task": "lbpp/rust/001", "time": "2026-05-12T02:30:00"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 413], "step": 37, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/023", "time": "2026-05-12T02:30:02"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 37, "task": "lbpp/rust/023", "time": "2026-05-12T02:30:02"}
+{"event": "step_return", "return_sum": 0.0, "step": 37, "time": "2026-05-12T02:30:02"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 37, "time": "2026-05-12T02:30:02"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.019999999552965164, "rewards": [0.0, 0.019999999552965164, 0.0, 0.0], "sequence_shape": [4, 524], "step": 38, "syntax_valid": 0, "tagged": 1, "task": "lbpp/rust/011", "time": "2026-05-12T02:30:04"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 4, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 547], "step": 38, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/115", "time": "2026-05-12T02:30:07"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 38, "task": "lbpp/rust/115", "time": "2026-05-12T02:30:07"}
+{"event": "step_return", "return_sum": 0.019999999552965164, "step": 38, "time": "2026-05-12T02:30:07"}
+{"dgpo_score": 0.0003003033925779164, "epoch": 0, "event": "update", "grad_norm": 202.0, "loss": -1.505967378616333, "step": 38, "time": "2026-05-12T02:30:08"}
+{"dgpo_score": 5.8726975112222135e-05, "epoch": 0, "event": "update", "grad_norm": 26.125, "loss": 0.49819913506507874, "step": 38, "time": "2026-05-12T02:30:09"}
+{"dgpo_score": 8.497162343701348e-05, "epoch": 0, "event": "update", "grad_norm": 15.25, "loss": 0.49845120310783386, "step": 38, "time": "2026-05-12T02:30:10"}
+{"dgpo_score": 3.184497472830117e-05, "epoch": 0, "event": "update", "grad_norm": 21.375, "loss": 0.5030670166015625, "step": 38, "time": "2026-05-12T02:30:10"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 337], "step": 39, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/013", "time": "2026-05-12T02:30:12"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 39, "task": "lbpp/rust/013", "time": "2026-05-12T02:30:12"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 374], "step": 39, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/159", "time": "2026-05-12T02:30:14"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 39, "task": "lbpp/rust/159", "time": "2026-05-12T02:30:14"}
+{"event": "step_return", "return_sum": 0.0, "step": 39, "time": "2026-05-12T02:30:14"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 39, "time": "2026-05-12T02:30:14"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 391], "step": 40, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/155", "time": "2026-05-12T02:30:16"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 40, "task": "lbpp/rust/155", "time": "2026-05-12T02:30:16"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 359], "step": 40, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/028", "time": "2026-05-12T02:30:18"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 40, "task": "lbpp/rust/028", "time": "2026-05-12T02:30:18"}
+{"event": "step_return", "return_sum": 0.0, "step": 40, "time": "2026-05-12T02:30:18"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 40, "time": "2026-05-12T02:30:18"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 434], "step": 41, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/116", "time": "2026-05-12T02:30:20"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 41, "task": "lbpp/rust/116", "time": "2026-05-12T02:30:20"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 430], "step": 41, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/017", "time": "2026-05-12T02:30:23"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 41, "task": "lbpp/rust/017", "time": "2026-05-12T02:30:23"}
+{"event": "step_return", "return_sum": 0.0, "step": 41, "time": "2026-05-12T02:30:23"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 41, "time": "2026-05-12T02:30:23"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 655], "step": 42, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/088", "time": "2026-05-12T02:30:25"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 42, "task": "lbpp/rust/088", "time": "2026-05-12T02:30:25"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 446], "step": 42, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/021", "time": "2026-05-12T02:30:27"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 42, "task": "lbpp/rust/021", "time": "2026-05-12T02:30:27"}
+{"event": "step_return", "return_sum": 0.0, "step": 42, "time": "2026-05-12T02:30:27"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 42, "time": "2026-05-12T02:30:27"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 529], "step": 43, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/083", "time": "2026-05-12T02:30:29"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 43, "task": "lbpp/rust/083", "time": "2026-05-12T02:30:29"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 360], "step": 43, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/038", "time": "2026-05-12T02:30:31"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 43, "task": "lbpp/rust/038", "time": "2026-05-12T02:30:31"}
+{"event": "step_return", "return_sum": 0.0, "step": 43, "time": "2026-05-12T02:30:31"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 43, "time": "2026-05-12T02:30:31"}
+{"code_like": 1, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.05000000074505806, "rewards": [0.0, 0.05000000074505806, 0.0, 0.0], "sequence_shape": [4, 407], "step": 44, "syntax_valid": 0, "tagged": 1, "task": "lbpp/rust/137", "time": "2026-05-12T02:30:33"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 4, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 441], "step": 44, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/020", "time": "2026-05-12T02:30:36"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 44, "task": "lbpp/rust/020", "time": "2026-05-12T02:30:36"}
+{"event": "step_return", "return_sum": 0.05000000074505806, "step": 44, "time": "2026-05-12T02:30:36"}
+{"dgpo_score": 2.9530418032663874e-05, "epoch": 0, "event": "update", "grad_norm": 53.75, "loss": -1.4984991550445557, "step": 44, "time": "2026-05-12T02:30:37"}
+{"dgpo_score": 9.636751201469451e-05, "epoch": 0, "event": "update", "grad_norm": 19.5, "loss": 0.4983740448951721, "step": 44, "time": "2026-05-12T02:30:38"}
+{"dgpo_score": 0.00010885454685194418, "epoch": 0, "event": "update", "grad_norm": 15.5625, "loss": 0.4998721778392792, "step": 44, "time": "2026-05-12T02:30:38"}
+{"dgpo_score": 2.2438374799094163e-05, "epoch": 0, "event": "update", "grad_norm": 16.75, "loss": 0.4997040033340454, "step": 44, "time": "2026-05-12T02:30:39"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 370], "step": 45, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/035", "time": "2026-05-12T02:30:41"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 45, "task": "lbpp/rust/035", "time": "2026-05-12T02:30:41"}
+{"code_like": 1, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.05000000074505806, "rewards": [0.0, 0.0, 0.05000000074505806, 0.0], "sequence_shape": [4, 348], "step": 45, "syntax_valid": 0, "tagged": 1, "task": "lbpp/rust/034", "time": "2026-05-12T02:30:43"}
+{"event": "step_return", "return_sum": 0.05000000074505806, "step": 45, "time": "2026-05-12T02:30:44"}
+{"dgpo_score": 0.00012035485997330397, "epoch": 0, "event": "update", "grad_norm": 24.375, "loss": 0.5009031891822815, "step": 45, "time": "2026-05-12T02:30:45"}
+{"dgpo_score": 0.00013720343122258782, "epoch": 0, "event": "update", "grad_norm": 72.0, "loss": -1.5055842399597168, "step": 45, "time": "2026-05-12T02:30:45"}
+{"dgpo_score": 5.432388206827454e-05, "epoch": 0, "event": "update", "grad_norm": 21.5, "loss": 0.49939602613449097, "step": 45, "time": "2026-05-12T02:30:46"}
+{"dgpo_score": 0.00011355486640240997, "epoch": 0, "event": "update", "grad_norm": 16.0, "loss": 0.4983433485031128, "step": 45, "time": "2026-05-12T02:30:47"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 435], "step": 46, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/066", "time": "2026-05-12T02:30:49"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 46, "task": "lbpp/rust/066", "time": "2026-05-12T02:30:49"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 448], "step": 46, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/138", "time": "2026-05-12T02:30:51"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 46, "task": "lbpp/rust/138", "time": "2026-05-12T02:30:51"}
+{"event": "step_return", "return_sum": 0.0, "step": 46, "time": "2026-05-12T02:30:51"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 46, "time": "2026-05-12T02:30:51"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 377], "step": 47, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/154", "time": "2026-05-12T02:30:53"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 47, "task": "lbpp/rust/154", "time": "2026-05-12T02:30:53"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 384], "step": 47, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/061", "time": "2026-05-12T02:30:55"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 47, "task": "lbpp/rust/061", "time": "2026-05-12T02:30:55"}
+{"event": "step_return", "return_sum": 0.0, "step": 47, "time": "2026-05-12T02:30:55"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 47, "time": "2026-05-12T02:30:55"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 424], "step": 48, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/073", "time": "2026-05-12T02:30:57"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 48, "task": "lbpp/rust/073", "time": "2026-05-12T02:30:57"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 438], "step": 48, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/026", "time": "2026-05-12T02:30:59"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 48, "task": "lbpp/rust/026", "time": "2026-05-12T02:30:59"}
+{"event": "step_return", "return_sum": 0.0, "step": 48, "time": "2026-05-12T02:30:59"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 48, "time": "2026-05-12T02:30:59"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 338], "step": 49, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/070", "time": "2026-05-12T02:31:01"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 49, "task": "lbpp/rust/070", "time": "2026-05-12T02:31:01"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 618], "step": 49, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/129", "time": "2026-05-12T02:31:03"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 49, "task": "lbpp/rust/129", "time": "2026-05-12T02:31:03"}
+{"event": "step_return", "return_sum": 0.0, "step": 49, "time": "2026-05-12T02:31:03"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 49, "time": "2026-05-12T02:31:03"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 425], "step": 50, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/136", "time": "2026-05-12T02:31:05"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 50, "task": "lbpp/rust/136", "time": "2026-05-12T02:31:05"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 380], "step": 50, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/096", "time": "2026-05-12T02:31:07"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 50, "task": "lbpp/rust/096", "time": "2026-05-12T02:31:07"}
+{"event": "step_return", "return_sum": 0.0, "step": 50, "time": "2026-05-12T02:31:07"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 50, "time": "2026-05-12T02:31:07"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 360], "step": 51, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/122", "time": "2026-05-12T02:31:09"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 51, "task": "lbpp/rust/122", "time": "2026-05-12T02:31:09"}
+{"code_like": 2, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.10000000149011612, "rewards": [0.05000000074505806, 0.05000000074505806, 0.0, 0.0], "sequence_shape": [4, 314], "step": 51, "syntax_valid": 0, "tagged": 2, "task": "lbpp/rust/149", "time": "2026-05-12T02:31:12"}
+{"event": "step_return", "return_sum": 0.10000000149011612, "step": 51, "time": "2026-05-12T02:31:13"}
+{"dgpo_score": 0.00012833354412578046, "epoch": 0, "event": "update", "grad_norm": 35.25, "loss": 0.8656466603279114, "step": 51, "time": "2026-05-12T02:31:13"}
+{"dgpo_score": 0.0001406718511134386, "epoch": 0, "event": "update", "grad_norm": 35.25, "loss": -0.8689225316047668, "step": 51, "time": "2026-05-12T02:31:14"}
+{"dgpo_score": 0.00015012039511930197, "epoch": 0, "event": "update", "grad_norm": 30.0, "loss": 0.8660227060317993, "step": 51, "time": "2026-05-12T02:31:14"}
+{"dgpo_score": 0.00023282573965843767, "epoch": 0, "event": "update", "grad_norm": 46.5, "loss": -0.8710872530937195, "step": 51, "time": "2026-05-12T02:31:15"}
+{"code_like": 1, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.05000000074505806, "rewards": [0.0, 0.05000000074505806, 0.0, 0.0], "sequence_shape": [4, 403], "step": 52, "syntax_valid": 0, "tagged": 1, "task": "lbpp/rust/050", "time": "2026-05-12T02:31:17"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 4, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 361], "step": 52, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/053", "time": "2026-05-12T02:31:20"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 52, "task": "lbpp/rust/053", "time": "2026-05-12T02:31:20"}
+{"event": "step_return", "return_sum": 0.05000000074505806, "step": 52, "time": "2026-05-12T02:31:20"}
+{"dgpo_score": 0.00016422545013483614, "epoch": 0, "event": "update", "grad_norm": 15.75, "loss": 0.49878841638565063, "step": 52, "time": "2026-05-12T02:31:21"}
+{"dgpo_score": 0.0002175417757825926, "epoch": 0, "event": "update", "grad_norm": 57.75, "loss": -1.501800537109375, "step": 52, "time": "2026-05-12T02:31:21"}
+{"dgpo_score": 0.00016024029173422605, "epoch": 0, "event": "update", "grad_norm": 21.75, "loss": 0.5013096332550049, "step": 52, "time": "2026-05-12T02:31:22"}
+{"dgpo_score": 0.0001850877160904929, "epoch": 0, "event": "update", "grad_norm": 19.625, "loss": 0.5005489587783813, "step": 52, "time": "2026-05-12T02:31:23"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 368], "step": 53, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/145", "time": "2026-05-12T02:31:25"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 53, "task": "lbpp/rust/145", "time": "2026-05-12T02:31:25"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 405], "step": 53, "syntax_valid": 1, "tagged": 1, "task": "lbpp/rust/114", "time": "2026-05-12T02:31:27"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 53, "task": "lbpp/rust/114", "time": "2026-05-12T02:31:27"}
+{"event": "step_return", "return_sum": 0.0, "step": 53, "time": "2026-05-12T02:31:27"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 53, "time": "2026-05-12T02:31:27"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 448], "step": 54, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/082", "time": "2026-05-12T02:31:29"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 54, "task": "lbpp/rust/082", "time": "2026-05-12T02:31:29"}
+{"code_like": 1, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.05000000074505806, "rewards": [0.0, 0.0, 0.0, 0.05000000074505806], "sequence_shape": [4, 452], "step": 54, "syntax_valid": 0, "tagged": 1, "task": "lbpp/rust/074", "time": "2026-05-12T02:31:31"}
+{"event": "step_return", "return_sum": 0.05000000074505806, "step": 54, "time": "2026-05-12T02:31:33"}
+{"dgpo_score": 6.186624523252249e-05, "epoch": 0, "event": "update", "grad_norm": 21.5, "loss": 0.49708276987075806, "step": 54, "time": "2026-05-12T02:31:33"}
+{"dgpo_score": 5.957937901257537e-05, "epoch": 0, "event": "update", "grad_norm": 17.75, "loss": 0.4999212324619293, "step": 54, "time": "2026-05-12T02:31:34"}
+{"dgpo_score": 0.0002908316091634333, "epoch": 0, "event": "update", "grad_norm": 92.5, "loss": -1.5001564025878906, "step": 54, "time": "2026-05-12T02:31:35"}
+{"dgpo_score": 6.0890495660714805e-05, "epoch": 0, "event": "update", "grad_norm": 17.5, "loss": 0.5001769661903381, "step": 54, "time": "2026-05-12T02:31:35"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 350], "step": 55, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/156", "time": "2026-05-12T02:31:38"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 55, "task": "lbpp/rust/156", "time": "2026-05-12T02:31:38"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 457], "step": 55, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/125", "time": "2026-05-12T02:31:40"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 55, "task": "lbpp/rust/125", "time": "2026-05-12T02:31:40"}
+{"event": "step_return", "return_sum": 0.0, "step": 55, "time": "2026-05-12T02:31:40"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 55, "time": "2026-05-12T02:31:40"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 394], "step": 56, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/146", "time": "2026-05-12T02:31:42"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 56, "task": "lbpp/rust/146", "time": "2026-05-12T02:31:42"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 451], "step": 56, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/161", "time": "2026-05-12T02:31:44"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 56, "task": "lbpp/rust/161", "time": "2026-05-12T02:31:44"}
+{"event": "step_return", "return_sum": 0.0, "step": 56, "time": "2026-05-12T02:31:44"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 56, "time": "2026-05-12T02:31:44"}
+{"code_like": 1, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.05000000074505806, "rewards": [0.0, 0.0, 0.0, 0.05000000074505806], "sequence_shape": [4, 678], "step": 57, "syntax_valid": 0, "tagged": 1, "task": "lbpp/rust/019", "time": "2026-05-12T02:31:46"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 4, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 493], "step": 57, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/121", "time": "2026-05-12T02:31:50"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 57, "task": "lbpp/rust/121", "time": "2026-05-12T02:31:50"}
+{"event": "step_return", "return_sum": 0.05000000074505806, "step": 57, "time": "2026-05-12T02:31:50"}
+{"dgpo_score": 3.220989674446173e-05, "epoch": 0, "event": "update", "grad_norm": 17.375, "loss": 0.5000225901603699, "step": 57, "time": "2026-05-12T02:31:51"}
+{"dgpo_score": 0.0001545644918223843, "epoch": 0, "event": "update", "grad_norm": 65.0, "loss": -1.4997763633728027, "step": 57, "time": "2026-05-12T02:31:52"}
+{"dgpo_score": 3.587269748095423e-05, "epoch": 0, "event": "update", "grad_norm": 48.75, "loss": 0.5025820136070251, "step": 57, "time": "2026-05-12T02:31:53"}
+{"dgpo_score": 4.546239506453276e-05, "epoch": 0, "event": "update", "grad_norm": 30.125, "loss": 0.5008044838905334, "step": 57, "time": "2026-05-12T02:31:54"}
+{"code_like": 1, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.05000000074505806, "rewards": [0.05000000074505806, 0.0, 0.0, 0.0], "sequence_shape": [4, 358], "step": 58, "syntax_valid": 0, "tagged": 1, "task": "lbpp/rust/085", "time": "2026-05-12T02:31:56"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 4, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 411], "step": 58, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/039", "time": "2026-05-12T02:31:59"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 58, "task": "lbpp/rust/039", "time": "2026-05-12T02:31:59"}
+{"event": "step_return", "return_sum": 0.05000000074505806, "step": 58, "time": "2026-05-12T02:32:00"}
+{"dgpo_score": 9.510335075901821e-05, "epoch": 0, "event": "update", "grad_norm": 16.0, "loss": 0.4994952976703644, "step": 58, "time": "2026-05-12T02:32:00"}
+{"dgpo_score": 0.00011758865730371326, "epoch": 0, "event": "update", "grad_norm": 19.875, "loss": 0.5011513233184814, "step": 58, "time": "2026-05-12T02:32:01"}
+{"dgpo_score": 0.00011215366248507053, "epoch": 0, "event": "update", "grad_norm": 59.25, "loss": -1.4975764751434326, "step": 58, "time": "2026-05-12T02:32:01"}
+{"dgpo_score": 9.929380030371249e-05, "epoch": 0, "event": "update", "grad_norm": 18.0, "loss": 0.49901026487350464, "step": 58, "time": "2026-05-12T02:32:02"}
+{"code_like": 1, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.05000000074505806, "rewards": [0.05000000074505806, 0.0, 0.0, 0.0], "sequence_shape": [4, 323], "step": 59, "syntax_valid": 0, "tagged": 1, "task": "lbpp/rust/090", "time": "2026-05-12T02:32:04"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 4, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 359], "step": 59, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/057", "time": "2026-05-12T02:32:07"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 59, "task": "lbpp/rust/057", "time": "2026-05-12T02:32:07"}
+{"event": "step_return", "return_sum": 0.05000000074505806, "step": 59, "time": "2026-05-12T02:32:07"}
+{"dgpo_score": 9.883520397124812e-05, "epoch": 0, "event": "update", "grad_norm": 19.875, "loss": 0.49951863288879395, "step": 59, "time": "2026-05-12T02:32:08"}
+{"dgpo_score": 0.00014564247976522893, "epoch": 0, "event": "update", "grad_norm": 69.5, "loss": -1.5013164281845093, "step": 59, "time": "2026-05-12T02:32:08"}
+{"dgpo_score": 6.532489351229742e-05, "epoch": 0, "event": "update", "grad_norm": 18.0, "loss": 0.5002915263175964, "step": 59, "time": "2026-05-12T02:32:09"}
+{"dgpo_score": 6.17441619397141e-05, "epoch": 0, "event": "update", "grad_norm": 20.125, "loss": 0.501410722732544, "step": 59, "time": "2026-05-12T02:32:10"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 560], "step": 60, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/043", "time": "2026-05-12T02:32:16"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 60, "task": "lbpp/rust/043", "time": "2026-05-12T02:32:16"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 441], "step": 60, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/139", "time": "2026-05-12T02:32:18"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 60, "task": "lbpp/rust/139", "time": "2026-05-12T02:32:18"}
+{"event": "step_return", "return_sum": 0.0, "step": 60, "time": "2026-05-12T02:32:18"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 60, "time": "2026-05-12T02:32:18"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 429], "step": 61, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/135", "time": "2026-05-12T02:32:20"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 61, "task": "lbpp/rust/135", "time": "2026-05-12T02:32:20"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 522], "step": 61, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/084", "time": "2026-05-12T02:32:22"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 61, "task": "lbpp/rust/084", "time": "2026-05-12T02:32:22"}
+{"event": "step_return", "return_sum": 0.0, "step": 61, "time": "2026-05-12T02:32:22"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 61, "time": "2026-05-12T02:32:22"}
+{"code_like": 1, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.05000000074505806, "rewards": [0.0, 0.0, 0.05000000074505806, 0.0], "sequence_shape": [4, 314], "step": 62, "syntax_valid": 0, "tagged": 1, "task": "lbpp/rust/051", "time": "2026-05-12T02:32:24"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 4, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 682], "step": 62, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/112", "time": "2026-05-12T02:32:27"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 62, "task": "lbpp/rust/112", "time": "2026-05-12T02:32:27"}
+{"event": "step_return", "return_sum": 0.05000000074505806, "step": 62, "time": "2026-05-12T02:32:27"}
+{"dgpo_score": 9.832603973336518e-05, "epoch": 0, "event": "update", "grad_norm": 22.0, "loss": 0.4980089068412781, "step": 62, "time": "2026-05-12T02:32:28"}
+{"dgpo_score": 7.790864765411243e-05, "epoch": 0, "event": "update", "grad_norm": 92.5, "loss": -1.5000176429748535, "step": 62, "time": "2026-05-12T02:32:28"}
+{"dgpo_score": 4.1438273910898715e-05, "epoch": 0, "event": "update", "grad_norm": 26.25, "loss": 0.50090092420578, "step": 62, "time": "2026-05-12T02:32:29"}
+{"dgpo_score": 4.086317494511604e-05, "epoch": 0, "event": "update", "grad_norm": 18.0, "loss": 0.5005873441696167, "step": 62, "time": "2026-05-12T02:32:30"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 408], "step": 63, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/072", "time": "2026-05-12T02:32:32"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 63, "task": "lbpp/rust/072", "time": "2026-05-12T02:32:32"}
+{"code_like": 2, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.5, "rewards": [0.25, 0.0, 0.0, 0.25], "sequence_shape": [4, 362], "step": 63, "syntax_valid": 2, "tagged": 2, "task": "lbpp/rust/076", "time": "2026-05-12T02:32:43"}
+{"event": "step_return", "return_sum": 0.5, "step": 63, "time": "2026-05-12T02:32:44"}
+{"dgpo_score": 0.00013374107948038727, "epoch": 0, "event": "update", "grad_norm": 90.0, "loss": 0.8710513114929199, "step": 63, "time": "2026-05-12T02:32:45"}
+{"dgpo_score": 0.00013738356938119978, "epoch": 0, "event": "update", "grad_norm": 27.5, "loss": 0.8660194873809814, "step": 63, "time": "2026-05-12T02:32:45"}
+{"dgpo_score": 0.0001905092503875494, "epoch": 0, "event": "update", "grad_norm": 28.375, "loss": -0.8667548298835754, "step": 63, "time": "2026-05-12T02:32:46"}
+{"dgpo_score": 0.00017302201013080776, "epoch": 0, "event": "update", "grad_norm": 28.875, "loss": -0.8669719696044922, "step": 63, "time": "2026-05-12T02:32:47"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 386], "step": 64, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/027", "time": "2026-05-12T02:32:49"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 64, "task": "lbpp/rust/027", "time": "2026-05-12T02:32:49"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 384], "step": 64, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/160", "time": "2026-05-12T02:32:51"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 64, "task": "lbpp/rust/160", "time": "2026-05-12T02:32:51"}
+{"event": "step_return", "return_sum": 0.0, "step": 64, "time": "2026-05-12T02:32:51"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 64, "time": "2026-05-12T02:32:51"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 423], "step": 65, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/036", "time": "2026-05-12T02:32:53"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 65, "task": "lbpp/rust/036", "time": "2026-05-12T02:32:53"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 504], "step": 65, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/095", "time": "2026-05-12T02:32:55"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 65, "task": "lbpp/rust/095", "time": "2026-05-12T02:32:55"}
+{"event": "step_return", "return_sum": 0.0, "step": 65, "time": "2026-05-12T02:32:55"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 65, "time": "2026-05-12T02:32:55"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 543], "step": 66, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/091", "time": "2026-05-12T02:32:57"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 66, "task": "lbpp/rust/091", "time": "2026-05-12T02:32:57"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 553], "step": 66, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/018", "time": "2026-05-12T02:32:59"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 66, "task": "lbpp/rust/018", "time": "2026-05-12T02:32:59"}
+{"event": "step_return", "return_sum": 0.0, "step": 66, "time": "2026-05-12T02:32:59"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 66, "time": "2026-05-12T02:32:59"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 566], "step": 67, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/016", "time": "2026-05-12T02:33:01"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 67, "task": "lbpp/rust/016", "time": "2026-05-12T02:33:01"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 625], "step": 67, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/130", "time": "2026-05-12T02:33:04"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 67, "task": "lbpp/rust/130", "time": "2026-05-12T02:33:04"}
+{"event": "step_return", "return_sum": 0.0, "step": 67, "time": "2026-05-12T02:33:04"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 67, "time": "2026-05-12T02:33:04"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 551], "step": 68, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/099", "time": "2026-05-12T02:33:06"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 68, "task": "lbpp/rust/099", "time": "2026-05-12T02:33:06"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 450], "step": 68, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/126", "time": "2026-05-12T02:33:08"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 68, "task": "lbpp/rust/126", "time": "2026-05-12T02:33:08"}
+{"event": "step_return", "return_sum": 0.0, "step": 68, "time": "2026-05-12T02:33:08"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 68, "time": "2026-05-12T02:33:08"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 366], "step": 69, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/108", "time": "2026-05-12T02:33:10"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 69, "task": "lbpp/rust/108", "time": "2026-05-12T02:33:10"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 365], "step": 69, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/143", "time": "2026-05-12T02:33:12"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 69, "task": "lbpp/rust/143", "time": "2026-05-12T02:33:12"}
+{"event": "step_return", "return_sum": 0.0, "step": 69, "time": "2026-05-12T02:33:12"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 69, "time": "2026-05-12T02:33:12"}
+{"code_like": 2, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.10000000149011612, "rewards": [0.0, 0.0, 0.05000000074505806, 0.05000000074505806], "sequence_shape": [4, 321], "step": 70, "syntax_valid": 0, "tagged": 2, "task": "lbpp/rust/123", "time": "2026-05-12T02:33:14"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 4, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 477], "step": 70, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/010", "time": "2026-05-12T02:33:17"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 70, "task": "lbpp/rust/010", "time": "2026-05-12T02:33:17"}
+{"event": "step_return", "return_sum": 0.10000000149011612, "step": 70, "time": "2026-05-12T02:33:17"}
+{"dgpo_score": 0.00010316452971892431, "epoch": 0, "event": "update", "grad_norm": 30.875, "loss": -0.8680433034896851, "step": 70, "time": "2026-05-12T02:33:18"}
+{"dgpo_score": 8.824170072330162e-05, "epoch": 0, "event": "update", "grad_norm": 27.125, "loss": 0.866237998008728, "step": 70, "time": "2026-05-12T02:33:19"}
+{"dgpo_score": 0.00010821221076184884, "epoch": 0, "event": "update", "grad_norm": 37.25, "loss": -0.8683879375457764, "step": 70, "time": "2026-05-12T02:33:19"}
+{"dgpo_score": 0.00010713292431319132, "epoch": 0, "event": "update", "grad_norm": 33.0, "loss": 0.8658990263938904, "step": 70, "time": "2026-05-12T02:33:20"}
+{"code_like": 2, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.10000000149011612, "rewards": [0.0, 0.05000000074505806, 0.0, 0.05000000074505806], "sequence_shape": [4, 321], "step": 71, "syntax_valid": 0, "tagged": 2, "task": "lbpp/rust/133", "time": "2026-05-12T02:33:22"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 4, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 392], "step": 71, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/003", "time": "2026-05-12T02:33:25"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 71, "task": "lbpp/rust/003", "time": "2026-05-12T02:33:25"}
+{"event": "step_return", "return_sum": 0.10000000149011612, "step": 71, "time": "2026-05-12T02:33:25"}
+{"dgpo_score": 6.735270289937034e-05, "epoch": 0, "event": "update", "grad_norm": 47.25, "loss": 0.860836386680603, "step": 71, "time": "2026-05-12T02:33:26"}
+{"dgpo_score": 6.509506783913821e-05, "epoch": 0, "event": "update", "grad_norm": 29.25, "loss": -0.8650085926055908, "step": 71, "time": "2026-05-12T02:33:26"}
+{"dgpo_score": 0.00011249238013988361, "epoch": 0, "event": "update", "grad_norm": 52.5, "loss": -0.8664713501930237, "step": 71, "time": "2026-05-12T02:33:27"}
+{"dgpo_score": 0.00017146047321148217, "epoch": 0, "event": "update", "grad_norm": 28.875, "loss": 0.8685134649276733, "step": 71, "time": "2026-05-12T02:33:27"}
+{"code_like": 1, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.05000000074505806, "rewards": [0.05000000074505806, 0.0, 0.0, 0.0], "sequence_shape": [4, 389], "step": 72, "syntax_valid": 0, "tagged": 1, "task": "lbpp/rust/040", "time": "2026-05-12T02:33:30"}
+{"code_like": 1, "event": "rollout", "replay_buffer_size": 4, "reward_sum": 0.25, "rewards": [0.0, 0.0, 0.0, 0.25], "sequence_shape": [4, 417], "step": 72, "syntax_valid": 1, "tagged": 1, "task": "lbpp/rust/124", "time": "2026-05-12T02:33:37"}
+{"event": "step_return", "return_sum": 0.30000001192092896, "step": 72, "time": "2026-05-12T02:33:39"}
+{"dgpo_score": 9.17634679353796e-06, "epoch": 0, "event": "update", "grad_norm": 14.1875, "loss": 0.5003587603569031, "step": 72, "time": "2026-05-12T02:33:39"}
+{"dgpo_score": 4.8843226977624e-05, "epoch": 0, "event": "update", "grad_norm": 27.375, "loss": 0.499977707862854, "step": 72, "time": "2026-05-12T02:33:40"}
+{"dgpo_score": 0.00018097243446391076, "epoch": 0, "event": "update", "grad_norm": 24.75, "loss": 0.5016624927520752, "step": 72, "time": "2026-05-12T02:33:41"}
+{"dgpo_score": 0.00013595624477602541, "epoch": 0, "event": "update", "grad_norm": 24.625, "loss": 0.5003066658973694, "step": 72, "time": "2026-05-12T02:33:41"}
+{"dgpo_score": 2.9359322070376948e-05, "epoch": 0, "event": "update", "grad_norm": 23.625, "loss": 0.5013115406036377, "step": 72, "time": "2026-05-12T02:33:42"}
+{"dgpo_score": 0.00016689281619619578, "epoch": 0, "event": "update", "grad_norm": 21.0, "loss": 0.49886178970336914, "step": 72, "time": "2026-05-12T02:33:43"}
+{"dgpo_score": 0.00017251577810384333, "epoch": 0, "event": "update", "grad_norm": 62.0, "loss": -1.5087584257125854, "step": 72, "time": "2026-05-12T02:33:43"}
+{"dgpo_score": 0.00017433828907087445, "epoch": 0, "event": "update", "grad_norm": 52.75, "loss": -1.5013468265533447, "step": 72, "time": "2026-05-12T02:33:44"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 663], "step": 73, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/107", "time": "2026-05-12T02:33:46"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 73, "task": "lbpp/rust/107", "time": "2026-05-12T02:33:46"}
+{"code_like": 0, "event": "rollout", "replay_buffer_size": 0, "reward_sum": 0.0, "rewards": [0.0, 0.0, 0.0, 0.0], "sequence_shape": [4, 333], "step": 73, "syntax_valid": 0, "tagged": 0, "task": "lbpp/rust/098", "time": "2026-05-12T02:33:48"}
+{"event": "skip_logits", "reason": "no_group_relative_signal", "step": 73, "task": "lbpp/rust/098", "time": "2026-05-12T02:33:48"}
+{"event": "step_return", "return_sum": 0.0, "step": 73, "time": "2026-05-12T02:33:48"}
+{"event": "skip_optimization", "reason": "no_relative_reward_signal", "step": 73, "time": "2026-05-12T02:33:48"}

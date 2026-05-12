@@ -123,3 +123,7 @@ ds = load_dataset("OpenRLHF/dapo-math-17k", split="train")
 - [DeepSeek-R1](https://github.com/deepseek-ai/DeepSeek-R1) — GRPO origin
 - [DeepSeekMath](https://arxiv.org/abs/2402.03300) — Mathematical reasoning with GRPO
 - [tiny-grpo (upstream)](https://github.com/open-thought/tiny-grpo) — Original minimal GRPO implementation
+
+## Latest Run Rewards
+
+![DGPO Rust reward curve](runs/20260512_022638/rewards.png)
