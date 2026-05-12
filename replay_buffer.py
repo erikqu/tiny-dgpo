@@ -28,6 +28,9 @@ class Experience:
     attention_mask: Optional[torch.Tensor]
     action_mask: torch.Tensor
     kl: Optional[torch.Tensor] = None
+    # DGPO: store full logits for Hellinger distance computation
+    policy_logits: Optional[torch.Tensor] = None
+    ref_logits: Optional[torch.Tensor] = None
 
     def to(self, device: torch.device) -> Self:
         members = {}
@@ -50,6 +53,8 @@ def split_experience_batch(experience: Experience) -> list[Experience]:
         "advantages",
         "attention_mask",
         "action_mask",
+        "policy_logits",
+        "ref_logits",
     )
     for key in keys:
         value = getattr(experience, key)
@@ -64,9 +69,29 @@ def split_experience_batch(experience: Experience) -> list[Experience]:
     return [Experience(**data) for data in batch_data]
 
 
+def zero_pad_sequences_3d(
+    sequences: list[torch.Tensor], side: str = "left"
+) -> torch.Tensor:
+    """Pad 3D tensors (batch of [seq_len, vocab_size]) along seq_len dimension."""
+    assert side in ("left", "right")
+    max_len = max(seq.size(0) for seq in sequences)
+    vocab_size = sequences[0].size(1)
+    padded_sequences = []
+    for seq in sequences:
+        pad_len = max_len - seq.size(0)
+        if pad_len > 0:
+            pad_tensor = torch.zeros(pad_len, vocab_size, dtype=seq.dtype, device=seq.device)
+            if side == "left":
+                seq = torch.cat([pad_tensor, seq], dim=0)
+            else:
+                seq = torch.cat([seq, pad_tensor], dim=0)
+        padded_sequences.append(seq)
+    return torch.stack(padded_sequences, dim=0)
+
+
 def join_experience_batch(items: list[Experience]) -> Experience:
     batch_data = {}
-    keys = (
+    keys_2d = (
         "sequences",
         "action_log_probs",
         "log_probs_ref",
@@ -75,10 +100,21 @@ def join_experience_batch(items: list[Experience]) -> Experience:
         "attention_mask",
         "action_mask",
     )
-    for key in keys:
+    keys_3d = (
+        "policy_logits",
+        "ref_logits",
+    )
+    for key in keys_2d:
         vals = [getattr(item, key) for item in items]
         if all(v is not None for v in vals):
             data = zero_pad_sequences(vals, "left")
+        else:
+            data = None
+        batch_data[key] = data
+    for key in keys_3d:
+        vals = [getattr(item, key) for item in items]
+        if all(v is not None for v in vals):
+            data = zero_pad_sequences_3d(vals, "left")
         else:
             data = None
         batch_data[key] = data

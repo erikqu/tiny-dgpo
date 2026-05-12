@@ -215,15 +215,18 @@ def read_prompts(
 
 def main():
     seed = 42
-    wandb_project = None  # "tiny_grpo"
+    wandb_project = None  # "tiny_dgpo"
     device_index = 0
     model_name = "meta-llama/Llama-3.2-1B-Instruct"
-    checkpoint_path = Path("./output")
+    checkpoint_path = Path("./output_dgpo")
     checkpoint_interval = 20
-    train_batch_size = 16
+    train_batch_size = 8  # smaller due to storing logits
     lr = 5e-6
-    kl_weight = 0.01
     clip_eps = 0.2
+
+    # DGPO hyperparameters (from paper)
+    dgpo_tau = 0.5      # temperature for softmax reweighting
+    dgpo_kappa = 1.0    # entropy gating exponent
 
     group_size = 12
     rollouts_per_step = 32
@@ -267,7 +270,7 @@ def main():
     )
 
     replay_buffer = ReplayBuffer()
-    objective = GRPOLoss(clip_eps=clip_eps, kl_weight=kl_weight)
+    objective = DGPOLoss(clip_eps=clip_eps, tau=dgpo_tau, kappa=dgpo_kappa)
 
     if wandb_project is None:
         wandb.init(mode="disabled")
@@ -303,20 +306,16 @@ def main():
                 advantages = group_advantages(returns)
                 attention_mask = sequence_ids != pad_token_id
 
-                log_probs = sequences_log_probs(
+                # DGPO: get both log probs and full logits for Hellinger distance
+                log_probs, policy_logits = sequences_log_probs_and_logits(
                     model=model,
                     sequence_ids=sequence_ids,
                     attention_mask=attention_mask,
                 )
-                log_probs_ref = sequences_log_probs(
+                log_probs_ref, ref_logits = sequences_log_probs_and_logits(
                     model=reference_model,
                     sequence_ids=sequence_ids,
                     attention_mask=attention_mask,
-                )
-                kl = approx_kl_divergence(
-                    log_probs=log_probs,
-                    log_probs_ref=log_probs_ref,
-                    action_mask=action_mask,
                 )
 
                 experience = Experience(
@@ -327,7 +326,9 @@ def main():
                     advantages=advantages,
                     attention_mask=attention_mask,
                     action_mask=action_mask,
-                    kl=kl,
+                    kl=None,
+                    policy_logits=policy_logits,
+                    ref_logits=ref_logits,
                 )
                 replay_buffer.append(experience.to(cpu_device))
 
@@ -354,21 +355,27 @@ def main():
 
                 optimizer.zero_grad()
 
-                log_probs = sequences_log_probs(
+                # DGPO: need current logits for Hellinger computation during training
+                log_probs, current_policy_logits = sequences_log_probs_and_logits(
                     model, sequence_ids=exp.sequences, attention_mask=exp.attention_mask
                 )
 
-                loss, kl = objective(log_probs=log_probs, experience=exp)
+                loss, metrics = objective(
+                    log_probs=log_probs,
+                    experience=exp,
+                    policy_logits=current_policy_logits,
+                    ref_logits=exp.ref_logits,
+                )
 
                 if not loss.isfinite():
                     print(f"Loss not finite, skipping backward, loss={loss}")
-                    print(f"experience.advantages={experience.advantages}")
+                    print(f"experience.advantages={exp.advantages}")
                     continue
 
                 loss.backward()
                 grad_norm = clip_grad_norm_(model.parameters(), max_norm=max_norm)
-                print(f"{step_epoch}: kl={kl: .4f}, grad_norm={grad_norm: .4f}")
-                wandb.log({"kl": kl, "grad_norm": grad_norm})
+                print(f"{step_epoch}: dgpo_score={metrics['dgpo_score_mean']:.4f}, grad_norm={grad_norm:.4f}")
+                wandb.log({"dgpo_score": metrics['dgpo_score_mean'], "grad_norm": grad_norm})
 
                 optimizer.step()
 
