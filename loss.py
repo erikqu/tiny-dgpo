@@ -29,7 +29,8 @@ def masked_mean(
 ) -> torch.Tensor:
     if mask is None:
         return tensor.mean(axis=dim)
-    return (tensor * mask).sum(axis=dim) / mask.sum(axis=dim)
+    mask = mask.to(dtype=tensor.dtype)
+    return (tensor * mask).sum(dim=dim) / mask.sum(dim=dim).clamp_min(1.0)
 
 
 class GRPOLoss(nn.Module):
@@ -125,7 +126,7 @@ class DGPOLoss(nn.Module):
             scores=scores,
             action_mask=action_mask,
             tau=self.tau,
-        )
+        ).detach()
 
         # Redistribute advantages to tokens
         token_advantages = compute_token_level_advantages(

@@ -89,6 +89,21 @@ def test_token_weights():
     print("Token weights tests passed!")
 
 
+def test_token_weights_all_masked_row():
+    """Test token weights stay finite when a sequence has no valid actions."""
+    scores = torch.rand(2, 10)
+    action_mask = torch.ones(2, 10, dtype=torch.bool)
+    action_mask[0, :] = False
+
+    weights = compute_token_weights(scores, action_mask, tau=0.5)
+
+    assert torch.isfinite(weights).all(), "Weights should stay finite"
+    assert (weights[0] == 0).all(), "All-masked rows should have zero weights"
+    assert abs(weights[1].sum().item() - action_mask[1].sum().item()) < 1e-4
+
+    print("All-masked token weights tests passed!")
+
+
 def test_token_level_advantages():
     """Test advantage redistribution preserves total credit."""
     batch, seq = 3, 8
@@ -131,6 +146,7 @@ if __name__ == "__main__":
     test_hellinger_distance()
     test_normalized_entropy()
     test_token_weights()
+    test_token_weights_all_masked_row()
     test_token_level_advantages()
     test_dgpo_scores()
     print("\nAll DGPO tests passed!")

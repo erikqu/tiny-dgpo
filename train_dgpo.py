@@ -26,7 +26,7 @@ def load_model(
     trust_remote_code: bool = True,
     bf16: bool = True,
     device_map=None,
-    use_flash_attn: bool = True,
+    use_flash_attn: bool = False,  # set True if flash-attn installed
 ) -> tuple[PreTrainedModel, PreTrainedTokenizer]:
     tokenizer = AutoTokenizer.from_pretrained(
         model_name_or_path,
@@ -98,13 +98,14 @@ def rollout(
     model_inputs["input_ids"] = input_ids
 
     # 2. sample completions
-    pad_token_id = tokenizer.eos_token_id
+    pad_token_id = tokenizer.pad_token_id
     generation_config = GenerationConfig(
         do_sample=True,
         top_p=top_p,
         temperature=temperature,
-        max_length=max_length,
+        max_new_tokens=max_length,
         pad_token_id=pad_token_id,
+        eos_token_id=tokenizer.eos_token_id,
     )
     sequence_ids = model.generate(**model_inputs, generation_config=generation_config)
     completions = tokenizer.batch_decode(
@@ -225,11 +226,12 @@ def main():
     seed = 42
     wandb_project = None  # "tiny_dgpo"
     device_index = 0
-    # Try 4B first; if OOM, fall back to 2B
-    model_name = "Qwen/Qwen3.5-4B"  # or "Qwen/Qwen3.5-2B" if OOM
+    # 24GB GPU profile. DGPO computes full-vocab logits for both policy and
+    # reference models, so keep batches small when using 2B+ models.
+    model_name = "Qwen/Qwen3.5-2B"
     checkpoint_path = Path("./output_dgpo")
     checkpoint_interval = 20
-    train_batch_size = 4  # conservative for DGPO logits storage
+    train_batch_size = 1  # conservative for DGPO logits storage
     lr = 1e-6           # paper uses 1e-6
     weight_decay = 0.1  # paper uses 0.1
     clip_eps = 0.2
@@ -238,13 +240,13 @@ def main():
     dgpo_tau = 0.5      # temperature for softmax reweighting (optimal per paper)
     dgpo_kappa = 1.0    # entropy gating exponent (optimal per paper)
 
-    group_size = 8      # paper uses G=16, reduced for memory
-    rollouts_per_step = 16
+    group_size = 2      # paper uses G=16, reduced for memory
+    rollouts_per_step = 2
     epochs_per_step = 1
     max_norm = 1.0  # gradient clipping
 
     # rollout params
-    max_length = 512    # shorter sequences for memory
+    max_length = 256    # shorter sequences for memory
     top_p = 1.0
     temperature = 1.0
 
@@ -261,7 +263,7 @@ def main():
         gradient_checkpointing_kwargs={"use_reentrant": False}
     )
 
-    pad_token_id = tokenizer.eos_token_id
+    pad_token_id = tokenizer.pad_token_id
 
     # Local toy dataset for testing; for real training use DAPO-17K:
     # from datasets import load_dataset
@@ -388,6 +390,10 @@ def main():
 
                 loss.backward()
                 grad_norm = clip_grad_norm_(model.parameters(), max_norm=max_norm)
+                if not torch.isfinite(grad_norm):
+                    print(f"Gradient norm not finite, skipping optimizer step, grad_norm={grad_norm}")
+                    optimizer.zero_grad(set_to_none=True)
+                    continue
                 print(f"{step_epoch}: dgpo_score={metrics['dgpo_score_mean']:.4f}, grad_norm={grad_norm:.4f}")
                 wandb.log({"dgpo_score": metrics['dgpo_score_mean'], "grad_norm": grad_norm})
 

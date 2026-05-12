@@ -127,9 +127,8 @@ def compute_token_weights(
     Returns:
         weights: [batch, seq_len] token importance weights, mean=1 per sequence
     """
-    # Mask invalid positions with large negative value before softmax
-    masked_scores = scores.clone()
-    masked_scores[~action_mask] = float('-inf')
+    # Use a large finite negative value so all-masked rows stay finite.
+    masked_scores = scores.masked_fill(~action_mask, -1e9)
 
     # Temperature-scaled softmax
     softmax_weights = F.softmax(masked_scores / tau, dim=-1)

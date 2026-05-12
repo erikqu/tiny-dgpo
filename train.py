@@ -26,7 +26,7 @@ def load_model(
     trust_remote_code: bool = True,
     bf16: bool = True,
     device_map=None,
-    use_flash_attn: bool = True,
+    use_flash_attn: bool = False,  # set True if flash-attn installed
 ) -> tuple[PreTrainedModel, PreTrainedTokenizer]:
     tokenizer = AutoTokenizer.from_pretrained(
         model_name_or_path,
