@@ -12,8 +12,9 @@ from torch.nn.utils import clip_grad_norm_
 from torch.utils.data import DataLoader
 from transformers import (
     AutoTokenizer,
+    AutoModelForCausalLM,
     PreTrainedTokenizer,
-    LlamaForCausalLM,
+    PreTrainedModel,
     GenerationConfig,
 )
 from loss import approx_kl_divergence, GRPOLoss, DGPOLoss
@@ -22,16 +23,23 @@ from replay_buffer import ReplayBuffer, Experience, join_experience_batch
 
 def load_model(
     model_name_or_path: str,
-    trust_remote_code: bool = False,
+    trust_remote_code: bool = True,
     bf16: bool = True,
     device_map=None,
-) -> tuple[LlamaForCausalLM, PreTrainedTokenizer]:
-    tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
-    tokenizer.pad_token = tokenizer.eos_token
-    model = LlamaForCausalLM.from_pretrained(
+    use_flash_attn: bool = True,
+) -> tuple[PreTrainedModel, PreTrainedTokenizer]:
+    tokenizer = AutoTokenizer.from_pretrained(
         model_name_or_path,
         trust_remote_code=trust_remote_code,
-        attn_implementation="flash_attention_2",
+    )
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+
+    attn_impl = "flash_attention_2" if use_flash_attn else "sdpa"
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name_or_path,
+        trust_remote_code=trust_remote_code,
+        attn_implementation=attn_impl,
         torch_dtype=torch.bfloat16 if bf16 else "auto",
         device_map=device_map,
     )
@@ -47,7 +55,7 @@ The assistant first thinks about the reasoning process in the mind and then prov
 
 @torch.no_grad()
 def rollout(
-    model: LlamaForCausalLM,
+    model: PreTrainedModel,
     tokenizer: PreTrainedTokenizer,
     task: str,
     oracle_answer: str,
@@ -150,7 +158,7 @@ def sequence_log_probs_from_logits(
 
 
 def sequences_log_probs(
-    model: LlamaForCausalLM,
+    model: PreTrainedModel,
     sequence_ids: torch.Tensor,
     attention_mask: torch.Tensor,
 ) -> torch.Tensor:
@@ -171,7 +179,7 @@ def sequences_log_probs(
 
 
 def sequences_log_probs_and_logits(
-    model: LlamaForCausalLM,
+    model: PreTrainedModel,
     sequence_ids: torch.Tensor,
     attention_mask: torch.Tensor,
 ) -> tuple[torch.Tensor, torch.Tensor]:

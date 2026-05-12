@@ -30,19 +30,81 @@ uv run python train_dgpo.py
 uv run python test_dgpo.py
 ```
 
+## Configuration
+
+Edit `train_dgpo.py` to change:
+
+```python
+model_name = "Qwen/Qwen3.5-4B"  # or "Qwen/Qwen3.5-2B" if OOM
+
+# DGPO hyperparameters (from paper)
+dgpo_tau = 0.5      # temperature for softmax reweighting
+dgpo_kappa = 1.0    # entropy gating exponent
+
+# Training
+lr = 1e-6
+weight_decay = 0.1
+group_size = 8      # rollouts per prompt
+train_batch_size = 4
+max_length = 512
+```
+
+For real training, swap the toy dataset to DAPO-17K:
+```python
+from datasets import load_dataset
+ds = load_dataset("OpenRLHF/dapo-math-17k", split="train")
+```
+
 ## DGPO Algorithm
 
-DGPO improves on GRPO by redistributing the sequence-level advantage to individual tokens based on:
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          DGPO Pipeline                                      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  1. ROLLOUT                    2. SCORE TOKENS                              │
+│  ┌─────────────┐               ┌──────────────────────────────────┐         │
+│  │ Policy πθ   │──► Generate   │  For each token t:               │         │
+│  │ Reference π │    G samples  │                                  │         │
+│  └─────────────┘               │  d_t = 1 - Σ√(πθ · πref)        │         │
+│        │                       │        (Hellinger distance)      │         │
+│        ▼                       │                                  │         │
+│  ┌─────────────┐               │  H_t = entropy(πθ) / log|V|     │         │
+│  │ Reward r_i  │               │        (normalized uncertainty)  │         │
+│  │ (verifier)  │               │                                  │         │
+│  └─────────────┘               │  s_t = d_t · H_t^κ              │         │
+│        │                       │        (gated deviation score)   │         │
+│        ▼                       └──────────────────────────────────┘         │
+│  ┌─────────────┐                              │                             │
+│  │ A_i = norm  │                              ▼                             │
+│  │ (r - μ) / σ │               3. REWEIGHT ADVANTAGES                       │
+│  └─────────────┘               ┌──────────────────────────────────┐         │
+│  (group advantage)             │  w_t = T · softmax(s_t / τ)     │         │
+│                                │                                  │         │
+│                                │  A_t = A_i · w_t                 │         │
+│                                │  (token-level advantage)         │         │
+│                                └──────────────────────────────────┘         │
+│                                               │                             │
+│                                               ▼                             │
+│                                4. PPO-CLIP LOSS (no KL penalty)             │
+│                                ┌──────────────────────────────────┐         │
+│                                │  L = -min(ρ·A_t, clip(ρ)·A_t)   │         │
+│                                └──────────────────────────────────┘         │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
 
-1. **Hellinger distance** `d_{i,t}` — How much the policy deviates from the reference at each token (bounded [0,1], unlike KL)
-2. **Entropy gating** `H_{i,t}^κ` — Filters out "fake innovations" (high deviation + low uncertainty = hallucination)
-3. **Token weights** `w_{i,t} = T_i * softmax(d * H^κ / τ)` — Amplifies credit for exploratory steps, discounts routine syntax
+**Key insight:** GRPO broadcasts the same advantage A_i to every token. DGPO redistributes credit so pivotal reasoning steps get amplified gradients while routine syntax gets discounted.
 
-The final token-level advantage `A_{i,t} = A_i * w_{i,t}` preserves total credit while focusing learning on pivotal tokens.
+## Hyperparameters
 
-Key hyperparameters:
-- `tau` (τ): Temperature for softmax reweighting (0.5-1.0 recommended)
-- `kappa` (κ): Entropy gating exponent (1.0 recommended)
+| Parameter | Value | Notes |
+|-----------|-------|-------|
+| τ (tau) | 0.5 | Softmax temperature (0.5-1.0 optimal) |
+| κ (kappa) | 1.0 | Entropy gating exponent |
+| lr | 1e-6 | Learning rate |
+| weight_decay | 0.1 | AdamW weight decay |
+| clip_eps | 0.2 | PPO clip epsilon |
 
 ## Files
 

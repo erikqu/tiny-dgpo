@@ -12,8 +12,9 @@ from torch.nn.utils import clip_grad_norm_
 from torch.utils.data import DataLoader
 from transformers import (
     AutoTokenizer,
+    AutoModelForCausalLM,
     PreTrainedTokenizer,
-    LlamaForCausalLM,
+    PreTrainedModel,
     GenerationConfig,
 )
 from loss import approx_kl_divergence, GRPOLoss, DGPOLoss
@@ -22,16 +23,23 @@ from replay_buffer import ReplayBuffer, Experience, join_experience_batch
 
 def load_model(
     model_name_or_path: str,
-    trust_remote_code: bool = False,
+    trust_remote_code: bool = True,
     bf16: bool = True,
     device_map=None,
-) -> tuple[LlamaForCausalLM, PreTrainedTokenizer]:
-    tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
-    tokenizer.pad_token = tokenizer.eos_token
-    model = LlamaForCausalLM.from_pretrained(
+    use_flash_attn: bool = True,
+) -> tuple[PreTrainedModel, PreTrainedTokenizer]:
+    tokenizer = AutoTokenizer.from_pretrained(
         model_name_or_path,
         trust_remote_code=trust_remote_code,
-        attn_implementation="flash_attention_2",
+    )
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+
+    attn_impl = "flash_attention_2" if use_flash_attn else "sdpa"
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name_or_path,
+        trust_remote_code=trust_remote_code,
+        attn_implementation=attn_impl,
         torch_dtype=torch.bfloat16 if bf16 else "auto",
         device_map=device_map,
     )
@@ -47,7 +55,7 @@ The assistant first thinks about the reasoning process in the mind and then prov
 
 @torch.no_grad()
 def rollout(
-    model: LlamaForCausalLM,
+    model: PreTrainedModel,
     tokenizer: PreTrainedTokenizer,
     task: str,
     oracle_answer: str,
@@ -150,7 +158,7 @@ def sequence_log_probs_from_logits(
 
 
 def sequences_log_probs(
-    model: LlamaForCausalLM,
+    model: PreTrainedModel,
     sequence_ids: torch.Tensor,
     attention_mask: torch.Tensor,
 ) -> torch.Tensor:
@@ -171,7 +179,7 @@ def sequences_log_probs(
 
 
 def sequences_log_probs_and_logits(
-    model: LlamaForCausalLM,
+    model: PreTrainedModel,
     sequence_ids: torch.Tensor,
     attention_mask: torch.Tensor,
 ) -> tuple[torch.Tensor, torch.Tensor]:
@@ -217,24 +225,26 @@ def main():
     seed = 42
     wandb_project = None  # "tiny_dgpo"
     device_index = 0
-    model_name = "meta-llama/Llama-3.2-1B-Instruct"
+    # Try 4B first; if OOM, fall back to 2B
+    model_name = "Qwen/Qwen3.5-4B"  # or "Qwen/Qwen3.5-2B" if OOM
     checkpoint_path = Path("./output_dgpo")
     checkpoint_interval = 20
-    train_batch_size = 8  # smaller due to storing logits
-    lr = 5e-6
+    train_batch_size = 4  # conservative for DGPO logits storage
+    lr = 1e-6           # paper uses 1e-6
+    weight_decay = 0.1  # paper uses 0.1
     clip_eps = 0.2
 
-    # DGPO hyperparameters (from paper)
-    dgpo_tau = 0.5      # temperature for softmax reweighting
-    dgpo_kappa = 1.0    # entropy gating exponent
+    # DGPO hyperparameters (from paper Table 4 & 5)
+    dgpo_tau = 0.5      # temperature for softmax reweighting (optimal per paper)
+    dgpo_kappa = 1.0    # entropy gating exponent (optimal per paper)
 
-    group_size = 12
-    rollouts_per_step = 32
+    group_size = 8      # paper uses G=16, reduced for memory
+    rollouts_per_step = 16
     epochs_per_step = 1
     max_norm = 1.0  # gradient clipping
 
     # rollout params
-    max_length = 1024
+    max_length = 512    # shorter sequences for memory
     top_p = 1.0
     temperature = 1.0
 
@@ -244,7 +254,7 @@ def main():
 
     reference_model, _ = load_model(model_name, device_map=device)
     model, tokenizer = load_model(model_name, device_map=device)
-    optimizer = optim.Adam(model.parameters(), lr=lr)
+    optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
 
     reference_model.eval()
     model.gradient_checkpointing_enable(
@@ -253,6 +263,9 @@ def main():
 
     pad_token_id = tokenizer.eos_token_id
 
+    # Local toy dataset for testing; for real training use DAPO-17K:
+    # from datasets import load_dataset
+    # ds = load_dataset("OpenRLHF/dapo-math-17k", split="train")
     prompts = read_prompts(
         "data/math_tasks.jsonl",
         predicate=lambda x: len(x["question"]) < 128
@@ -306,12 +319,13 @@ def main():
                 advantages = group_advantages(returns)
                 attention_mask = sequence_ids != pad_token_id
 
-                # DGPO: get both log probs and full logits for Hellinger distance
-                log_probs, policy_logits = sequences_log_probs_and_logits(
+                # Get log probs from policy (for importance sampling ratio)
+                log_probs = sequences_log_probs(
                     model=model,
                     sequence_ids=sequence_ids,
                     attention_mask=attention_mask,
                 )
+                # DGPO: get ref logits for Hellinger distance computation
                 log_probs_ref, ref_logits = sequences_log_probs_and_logits(
                     model=reference_model,
                     sequence_ids=sequence_ids,
@@ -327,7 +341,7 @@ def main():
                     attention_mask=attention_mask,
                     action_mask=action_mask,
                     kl=None,
-                    policy_logits=policy_logits,
+                    policy_logits=None,  # not needed - we compute fresh during training
                     ref_logits=ref_logits,
                 )
                 replay_buffer.append(experience.to(cpu_device))
