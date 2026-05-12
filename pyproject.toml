@@ -4,11 +4,13 @@ version = "0.1.0"
 description = "Minimal GRPO and DGPO implementation for LLM reinforcement learning"
 requires-python = ">=3.10,<3.13"
 dependencies = [
-    "torch==2.5.1",
+    "torch==2.5.1+cu121; sys_platform == 'linux'",
+    "torch==2.5.1; sys_platform != 'linux'",
     "transformers>=4.40.0",
     "accelerate>=0.28.0",
     "wandb>=0.16.0",
     "datasets>=2.18.0",
+    "rich>=13.0.0",
 ]
 
 [project.optional-dependencies]

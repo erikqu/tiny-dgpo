@@ -1,15 +1,23 @@
 from collections.abc import Callable
+import base64
+from collections import deque
+from datetime import datetime
 import json
+import pickle
 from pathlib import Path
 import random
 import re
+import subprocess
+import tempfile
 from typing import Any, Iterator, Optional
+import zlib
 import wandb
 import torch
 import torch.optim as optim
 import torch.nn.functional as F
 from torch.nn.utils import clip_grad_norm_
 from torch.utils.data import DataLoader
+from datasets import load_dataset
 from transformers import (
     AutoTokenizer,
     AutoModelForCausalLM,
@@ -19,6 +27,22 @@ from transformers import (
 )
 from loss import approx_kl_divergence, GRPOLoss, DGPOLoss
 from replay_buffer import ReplayBuffer, Experience, join_experience_batch
+
+try:
+    from rich.console import Console, Group
+    from rich.live import Live
+    from rich.panel import Panel
+    from rich.table import Table
+
+    RICH_AVAILABLE = True
+except ImportError:
+    Console = Group = Live = Panel = Table = None
+    RICH_AVAILABLE = False
+
+
+LBPP_RUST_PARQUET_URL = (
+    "https://huggingface.co/datasets/CohereLabs/lbpp/resolve/main/rust/test.parquet"
+)
 
 
 def load_model(
@@ -46,6 +70,10 @@ def load_model(
     return model, tokenizer
 
 
+def model_device(model: PreTrainedModel) -> torch.device:
+    return next(model.parameters()).device
+
+
 # DeepSeek Zero system prompt
 system_prompt = """A conversation between User and Assistant. The user asks a question, and the Assistant solves it.
 The assistant first thinks about the reasoning process in the mind and then provides the user with the answer. The reasoning process and answer are enclosed within <think> </think> and <answer> </answer> tags, respectively, i.e., <think> reasoning process here </think>
@@ -60,6 +88,7 @@ def rollout(
     task: str,
     oracle_answer: str,
     num_rollouts: int,
+    reward_fn: Optional[Callable[[str], float]] = None,
     max_length: int = 1024,
     temperature: float = 1.0,
     top_p: float = 1.0,
@@ -87,7 +116,7 @@ def rollout(
         padding=True,
         padding_side="left",
         return_attention_mask=True,
-    ).to("cuda")
+    ).to(model_device(model))
 
     # duplicate prompt num_rollouts times
     model_inputs["attention_mask"] = model_inputs["attention_mask"].repeat(
@@ -120,24 +149,8 @@ def rollout(
     # 3. determine rewards
     returns = torch.zeros(num_rollouts, 1, dtype=torch.float)
     for i, completion in enumerate(completions):
-        # search answer tag
-        answer_match = re.search(
-            r"<answer>(.*?)</answer>",
-            completion,
-            flags=re.DOTALL,
-        )
-
-        answer = answer_match.group(1) if answer_match else None
-        reward = 0
-        if answer is not None:
-            if answer == oracle_answer:
-                reward = 1.0
-            elif oracle_answer in answer:
-                reward = 0.5
-            else:
-                reward = 0.01
-
-        returns[i] = reward
+        scorer = reward_fn or (lambda text: score_arithmetic_completion(text, oracle_answer))
+        returns[i] = scorer(completion)
 
     return sequence_ids, returns.to(sequence_ids.device), action_mask, completions
 
@@ -163,6 +176,9 @@ def sequences_log_probs(
     sequence_ids: torch.Tensor,
     attention_mask: torch.Tensor,
 ) -> torch.Tensor:
+    device = model_device(model)
+    sequence_ids = sequence_ids.to(device)
+    attention_mask = attention_mask.to(device)
     position_ids = attention_mask.long().cumsum(dim=-1) - 1
     position_ids.masked_fill_(mask=(attention_mask == 0), value=1)
     output = model.forward(
@@ -185,6 +201,9 @@ def sequences_log_probs_and_logits(
     attention_mask: torch.Tensor,
 ) -> tuple[torch.Tensor, torch.Tensor]:
     """Return both log probs (for chosen tokens) and full logits (for DGPO Hellinger)."""
+    device = model_device(model)
+    sequence_ids = sequence_ids.to(device)
+    attention_mask = attention_mask.to(device)
     position_ids = attention_mask.long().cumsum(dim=-1) - 1
     position_ids.masked_fill_(mask=(attention_mask == 0), value=1)
     output = model.forward(
@@ -222,6 +241,368 @@ def read_prompts(
     return rows
 
 
+def decode_lbpp_field(value: str) -> str | list | dict:
+    """Decode LBPP's compressed code/test fields."""
+    return json.loads(pickle.loads(zlib.decompress(base64.b64decode(value.encode("utf-8")))))
+
+
+def rust_prompt(row: dict) -> str:
+    return f"""Write a Rust implementation for the following programming task.
+
+Return only Rust code inside <answer>...</answer>. Do not include explanations.
+
+Task:
+{row["instruction"]}
+
+Required function signature:
+```rust
+{row["signature"]}
+```
+"""
+
+
+def read_lbpp_rust_prompts(max_rows: Optional[int] = None) -> list[dict]:
+    dataset = load_dataset(
+        "parquet",
+        data_files=LBPP_RUST_PARQUET_URL,
+        split="train",
+    )
+    rows = []
+    for row in dataset:
+        rows.append(
+            {
+                "task_id": row["task_id"],
+                "question": rust_prompt(row),
+                "answer": row["task_id"],
+                "test_file": decode_lbpp_field(row["test_file"]),
+            }
+        )
+        if max_rows is not None and len(rows) >= max_rows:
+            break
+    return rows
+
+
+def extract_answer(completion: str) -> Optional[str]:
+    answer_match = re.search(
+        r"<answer>(.*?)</answer>",
+        completion,
+        flags=re.DOTALL,
+    )
+    if answer_match is None:
+        return None
+    return answer_match.group(1).strip()
+
+
+def strip_markdown_code_fence(text: str) -> str:
+    text = text.strip()
+    fence_match = re.fullmatch(r"```(?:rust|rs)?\s*(.*?)```", text, flags=re.DOTALL)
+    if fence_match:
+        return fence_match.group(1).strip()
+    return text
+
+
+def looks_like_rust_code(code: str) -> bool:
+    return any(token in code for token in ("fn ", "pub fn ", "impl ", "use ", "let "))
+
+
+def run_rust_command(
+    code: str,
+    test_file: str,
+    command: list[str],
+    timeout_seconds: int,
+) -> Optional[subprocess.CompletedProcess]:
+    with tempfile.TemporaryDirectory(prefix="tiny-dgpo-rust-") as tmp_dir:
+        crate_dir = Path(tmp_dir)
+        src_dir = crate_dir / "src"
+        src_dir.mkdir()
+        (crate_dir / "Cargo.toml").write_text(
+            """[package]
+name = "tiny_dgpo_rust_eval"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+approx = "0.5"
+assert_fs = "1"
+chrono = "0.4"
+map-macro = "0.3"
+serde_json = "1"
+""",
+            encoding="utf-8",
+        )
+        (src_dir / "code.rs").write_text(code, encoding="utf-8")
+        (src_dir / "lib.rs").write_text(test_file, encoding="utf-8")
+
+        try:
+            return subprocess.run(
+                command,
+                cwd=crate_dir,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                timeout=timeout_seconds,
+                check=False,
+            )
+        except (subprocess.TimeoutExpired, OSError):
+            return None
+
+
+def run_rust_syntax_check(code: str, timeout_seconds: int) -> bool:
+    with tempfile.TemporaryDirectory(prefix="tiny-dgpo-rust-syntax-") as tmp_dir:
+        code_path = Path(tmp_dir) / "code.rs"
+        output_path = Path(tmp_dir) / "libcode.rlib"
+        code_path.write_text(code, encoding="utf-8")
+        try:
+            result = subprocess.run(
+                [
+                    "rustc",
+                    "--edition=2021",
+                    "--crate-type",
+                    "lib",
+                    str(code_path),
+                    "-o",
+                    str(output_path),
+                ],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                timeout=timeout_seconds,
+                check=False,
+            )
+        except (subprocess.TimeoutExpired, OSError):
+            return False
+    return result.returncode == 0
+
+
+def score_arithmetic_completion(completion: str, oracle_answer: str) -> float:
+    answer = extract_answer(completion)
+    if answer is None:
+        return 0.0
+    answer = answer.strip()
+    if answer == oracle_answer:
+        return 1.0
+    if oracle_answer in answer:
+        return 0.5
+    return 0.01
+
+
+def score_rust_completion(
+    completion: str,
+    test_file: str,
+    timeout_seconds: int = 20,
+) -> float:
+    answer = extract_answer(completion)
+    if answer is None:
+        return 0.0
+
+    code = strip_markdown_code_fence(answer)
+    if not code:
+        return 0.0
+    if not looks_like_rust_code(code):
+        return 0.02
+
+    if not run_rust_syntax_check(code, timeout_seconds):
+        return 0.05
+
+    check = run_rust_command(
+        code,
+        test_file,
+        ["cargo", "check", "--quiet"],
+        timeout_seconds,
+    )
+    if check is None or check.returncode != 0:
+        return 0.10
+
+    test = run_rust_command(
+        code,
+        test_file,
+        ["cargo", "test", "--quiet"],
+        timeout_seconds,
+    )
+    if test is None:
+        return 0.25
+    return 1.0 if test.returncode == 0 else 0.25
+
+
+def rust_completion_stats(completions: list[str]) -> dict[str, int]:
+    tagged = 0
+    code_like = 0
+    syntax_valid = 0
+    for completion in completions:
+        answer = extract_answer(completion)
+        if answer is None:
+            continue
+        tagged += 1
+        code = strip_markdown_code_fence(answer)
+        if looks_like_rust_code(code):
+            code_like += 1
+        if run_rust_syntax_check(code, timeout_seconds=10):
+            syntax_valid += 1
+    return {"tagged": tagged, "code_like": code_like, "syntax_valid": syntax_valid}
+
+
+class JsonlMetricLogger:
+    def __init__(self, run_dir: Path) -> None:
+        self.run_dir = run_dir
+        self.run_dir.mkdir(parents=True, exist_ok=True)
+        self.path = self.run_dir / "metrics.jsonl"
+        self.file = self.path.open("a", encoding="utf-8")
+
+    def log(self, event: str, **fields) -> None:
+        row = {
+            "time": datetime.now().isoformat(timespec="seconds"),
+            "event": event,
+            **fields,
+        }
+        self.file.write(json.dumps(row, sort_keys=True) + "\n")
+        self.file.flush()
+
+    def close(self) -> None:
+        self.file.close()
+
+    def __enter__(self) -> "JsonlMetricLogger":
+        return self
+
+    def __exit__(self, exc_type, exc, tb) -> None:
+        self.close()
+
+
+class TrainingDashboard:
+    def __init__(self, enabled: bool = True, max_events: int = 10) -> None:
+        self.enabled = enabled and RICH_AVAILABLE
+        self.console = Console() if self.enabled else None
+        self.live = None
+        self.events = deque(maxlen=max_events)
+        self.state = {
+            "step": 0,
+            "task_source": "",
+            "model_name": "",
+            "policy_device": "",
+            "reference_device": "",
+            "num_prompts": 0,
+            "run_dir": "",
+            "last_return": 0.0,
+            "total_return": 0.0,
+            "rollouts": 0,
+            "updates": 0,
+            "skips": 0,
+            "last_dgpo_score": 0.0,
+            "last_grad_norm": 0.0,
+            "last_loss": 0.0,
+        }
+
+    def __enter__(self) -> "TrainingDashboard":
+        if self.enabled:
+            self.live = Live(
+                self.render(),
+                console=self.console,
+                refresh_per_second=4,
+                redirect_stdout=False,
+                redirect_stderr=False,
+            )
+            self.live.start(refresh=True)
+        return self
+
+    def __exit__(self, exc_type, exc, tb) -> None:
+        if self.live is not None:
+            self.live.stop()
+
+    def update(self, **kwargs) -> None:
+        self.state.update(kwargs)
+        if self.live is not None:
+            self.live.update(self.render(), refresh=True)
+
+    def log(self, message: str) -> None:
+        if self.enabled:
+            self.events.appendleft(message)
+            self.update()
+        else:
+            print(message)
+
+    def record_rollout(
+        self,
+        task_label: str,
+        reward_sum: float,
+        replay_buffer_size: int,
+        sequence_shape: tuple[int, ...],
+        tagged: Optional[int] = None,
+        code_like: Optional[int] = None,
+        syntax_valid: Optional[int] = None,
+    ) -> None:
+        self.state["rollouts"] += 1
+        tag_text = ""
+        if tagged is not None and code_like is not None and syntax_valid is not None:
+            tag_text = (
+                f" tagged={tagged}/{sequence_shape[0]}"
+                f" code={code_like}/{sequence_shape[0]}"
+                f" syntax={syntax_valid}/{sequence_shape[0]}"
+            )
+        self.log(
+            f"{task_label} reward={reward_sum:.2f} replay={replay_buffer_size} "
+            f"shape={sequence_shape}{tag_text}"
+        )
+
+    def record_step_return(self, step: int, value: float) -> None:
+        self.state["step"] = step
+        self.state["last_return"] = value
+        self.state["total_return"] += value
+        self.update()
+
+    def record_skip(self, step: int) -> None:
+        self.state["skips"] += 1
+        self.log(f"step {step}: no relative reward signal, skipped optimization")
+
+    def record_update(self, step: int, loss: float, dgpo_score: float, grad_norm: float) -> None:
+        self.state["step"] = step
+        self.state["updates"] += 1
+        self.state["last_loss"] = loss
+        self.state["last_dgpo_score"] = dgpo_score
+        self.state["last_grad_norm"] = grad_norm
+        self.log(
+            f"step {step}: update loss={loss:.4f} dgpo={dgpo_score:.4f} grad={grad_norm:.4f}"
+        )
+
+    def render(self):
+        status = Table.grid(expand=True)
+        status.add_column(ratio=1)
+        status.add_column(ratio=1)
+        status.add_row(
+            f"[bold]step[/bold] {self.state['step']}    "
+            f"[bold]source[/bold] {self.state['task_source']}    "
+            f"[bold]prompts[/bold] {self.state['num_prompts']}",
+            f"[bold]model[/bold] {self.state['model_name']}",
+        )
+        status.add_row(
+            f"[bold]policy[/bold] {self.state['policy_device']}    "
+            f"[bold]reference[/bold] {self.state['reference_device']}",
+            f"[bold]rollouts[/bold] {self.state['rollouts']}    "
+            f"[bold]updates[/bold] {self.state['updates']}    "
+            f"[bold]skips[/bold] {self.state['skips']}",
+        )
+        status.add_row(
+            f"[bold]last return[/bold] {self.state['last_return']:.3f}    "
+            f"[bold]total return[/bold] {self.state['total_return']:.3f}",
+            f"[bold]loss[/bold] {self.state['last_loss']:.4f}    "
+            f"[bold]dgpo[/bold] {self.state['last_dgpo_score']:.4f}    "
+            f"[bold]grad[/bold] {self.state['last_grad_norm']:.4f}",
+        )
+        status.add_row(
+            f"[bold]run dir[/bold] {self.state['run_dir']}",
+            "",
+        )
+
+        events = Table(title="Recent Rollouts / Updates", expand=True)
+        events.add_column("event", overflow="fold")
+        for event in self.events:
+            events.add_row(event)
+        if not self.events:
+            events.add_row("waiting for first rollout...")
+
+        return Panel(
+            Group(status, events),
+            title="tiny-dgpo",
+            border_style="cyan",
+        )
+
+
 def main():
     seed = 42
     wandb_project = None  # "tiny_dgpo"
@@ -235,28 +616,39 @@ def main():
     lr = 1e-6           # paper uses 1e-6
     weight_decay = 0.1  # paper uses 0.1
     clip_eps = 0.2
+    task_source = "lbpp_rust"  # "lbpp_rust" or "arithmetic"
+    use_tui = True
+    run_dir = Path("runs") / datetime.now().strftime("%Y%m%d_%H%M%S")
 
     # DGPO hyperparameters (from paper Table 4 & 5)
     dgpo_tau = 0.5      # temperature for softmax reweighting (optimal per paper)
     dgpo_kappa = 1.0    # entropy gating exponent (optimal per paper)
 
-    group_size = 2      # paper uses G=16, reduced for memory
+    group_size = 4      # paper uses G=16, reduced for memory
     rollouts_per_step = 2
     epochs_per_step = 1
     max_norm = 1.0  # gradient clipping
 
     # rollout params
-    max_length = 256    # shorter sequences for memory
+    max_length = 128    # full-vocab DGPO logits make long code rollouts expensive
     top_p = 1.0
     temperature = 1.0
 
-    device = torch.device("cuda", device_index)
+    policy_device = torch.device("cuda", device_index)
+    reference_device = torch.device("cuda", 1) if torch.cuda.device_count() > 1 else policy_device
+    device = policy_device
     cpu_device = torch.device("cpu")
     init_rng(seed)
 
-    reference_model, _ = load_model(model_name, device_map=device)
-    model, tokenizer = load_model(model_name, device_map=device)
-    optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
+    print(f"policy_device={policy_device}, reference_device={reference_device}")
+    reference_model, _ = load_model(model_name, device_map={"": str(reference_device)})
+    model, tokenizer = load_model(model_name, device_map={"": str(policy_device)})
+    optimizer = optim.AdamW(
+        model.parameters(),
+        lr=lr,
+        weight_decay=weight_decay,
+        foreach=False,
+    )
 
     reference_model.eval()
     model.gradient_checkpointing_enable(
@@ -265,16 +657,18 @@ def main():
 
     pad_token_id = tokenizer.pad_token_id
 
-    # Local toy dataset for testing; for real training use DAPO-17K:
-    # from datasets import load_dataset
-    # ds = load_dataset("OpenRLHF/dapo-math-17k", split="train")
-    prompts = read_prompts(
-        "data/math_tasks.jsonl",
-        predicate=lambda x: len(x["question"]) < 128
-        and x["num_terms"] <= 3
-        and x["num_digits"] <= 3,
-        max_rows=64 * 1024,
-    )
+    if task_source == "lbpp_rust":
+        prompts = read_lbpp_rust_prompts(max_rows=149)
+    elif task_source == "arithmetic":
+        prompts = read_prompts(
+            "data/math_tasks.jsonl",
+            predicate=lambda x: len(x["question"]) < 128
+            and x["num_terms"] <= 3
+            and x["num_digits"] <= 3,
+            max_rows=64 * 1024,
+        )
+    else:
+        raise ValueError(f"Unknown task_source={task_source}")
     print(f"found {len(prompts)} matching prompts")
     prompt_loader = DataLoader(
         prompts,
@@ -292,33 +686,109 @@ def main():
     else:
         wandb.init(project=wandb_project)
 
-    for k, prompt_batch in enumerate(prompt_loader):
+    dashboard = TrainingDashboard(enabled=use_tui)
+    dashboard.update(
+        task_source=task_source,
+        model_name=model_name,
+        policy_device=str(policy_device),
+        reference_device=str(reference_device),
+        num_prompts=len(prompts),
+        run_dir=str(run_dir),
+    )
+
+    with JsonlMetricLogger(run_dir) as metric_logger, dashboard:
+      metric_logger.log(
+          "config",
+          model_name=model_name,
+          task_source=task_source,
+          group_size=group_size,
+          rollouts_per_step=rollouts_per_step,
+          train_batch_size=train_batch_size,
+          max_new_tokens=max_length,
+          tau=dgpo_tau,
+          kappa=dgpo_kappa,
+          lr=lr,
+          weight_decay=weight_decay,
+          clip_eps=clip_eps,
+          policy_device=str(policy_device),
+          reference_device=str(reference_device),
+      )
+      for k, prompt_batch in enumerate(prompt_loader):
         rollout_returns = []
 
         replay_buffer.clear()
 
         questions = prompt_batch["question"]
         answers = prompt_batch["answer"]
+        test_files = prompt_batch.get("test_file")
 
         with torch.no_grad():
-            for q, a in zip(questions, answers):
+            for idx, (q, a) in enumerate(zip(questions, answers)):
+                reward_fn = None
+                if task_source == "lbpp_rust":
+                    test_file = test_files[idx]
+                    reward_fn = lambda completion, test_file=test_file: score_rust_completion(
+                        completion,
+                        test_file,
+                    )
                 sequence_ids, returns, action_mask, completions = rollout(
                     model,
                     tokenizer,
                     q,
                     a,
                     num_rollouts=group_size,
+                    reward_fn=reward_fn,
                     max_length=max_length,
                     temperature=temperature,
                     top_p=top_p,
                 )
 
-                print(
-                    f"rollout q='{q}', a='{a}', returns={returns.sum().item():.2f}, replay_buffer_size={len(replay_buffer)}, sequence_ids={sequence_ids.shape}"
+                task_label = a if task_source == "lbpp_rust" else q
+                tagged = None
+                code_like = None
+                syntax_valid = None
+                if task_source == "lbpp_rust":
+                    stats = rust_completion_stats(completions)
+                    tagged = stats["tagged"]
+                    code_like = stats["code_like"]
+                    syntax_valid = stats["syntax_valid"]
+                reward_values = [
+                    float(value)
+                    for value in returns.squeeze(-1).detach().cpu().tolist()
+                ]
+                metric_logger.log(
+                    "rollout",
+                    step=k,
+                    task=task_label,
+                    reward_sum=float(returns.sum().item()),
+                    rewards=reward_values,
+                    tagged=tagged,
+                    code_like=code_like,
+                    syntax_valid=syntax_valid,
+                    sequence_shape=list(sequence_ids.shape),
+                    replay_buffer_size=len(replay_buffer),
+                )
+                dashboard.record_rollout(
+                    task_label=task_label,
+                    reward_sum=returns.sum().item(),
+                    replay_buffer_size=len(replay_buffer),
+                    sequence_shape=tuple(sequence_ids.shape),
+                    tagged=tagged,
+                    code_like=code_like,
+                    syntax_valid=syntax_valid,
                 )
                 rollout_returns.append(returns.cpu())
 
                 advantages = group_advantages(returns)
+                if advantages.abs().sum().item() == 0:
+                    dashboard.log(f"{task_label}: no group-relative signal, skipped logits")
+                    metric_logger.log(
+                        "skip_logits",
+                        step=k,
+                        task=task_label,
+                        reason="no_group_relative_signal",
+                    )
+                    continue
                 attention_mask = sequence_ids != pad_token_id
 
                 # Get log probs from policy (for importance sampling ratio)
@@ -350,8 +820,27 @@ def main():
 
         torch.cuda.empty_cache()
         episode_return_sum = torch.stack(rollout_returns).sum()
-        print(f"returns of step {k}: {episode_return_sum:.4f}")
+        dashboard.record_step_return(k, episode_return_sum.item())
+        metric_logger.log(
+            "step_return",
+            step=k,
+            return_sum=float(episode_return_sum.item()),
+        )
         wandb.log({"returns": episode_return_sum})
+
+        advantage_signal = sum(
+            item.advantages.abs().sum().item()
+            for item in replay_buffer.items
+            if item.advantages is not None
+        )
+        if advantage_signal == 0:
+            dashboard.record_skip(k)
+            metric_logger.log(
+                "skip_optimization",
+                step=k,
+                reason="no_relative_reward_signal",
+            )
+            continue
 
         experience_sampler = DataLoader(
             replay_buffer,
@@ -376,7 +865,7 @@ def main():
                     model, sequence_ids=exp.sequences, attention_mask=exp.attention_mask
                 )
 
-                loss, metrics = objective(
+                loss, train_metrics = objective(
                     log_probs=log_probs,
                     experience=exp,
                     policy_logits=current_policy_logits,
@@ -384,18 +873,46 @@ def main():
                 )
 
                 if not loss.isfinite():
-                    print(f"Loss not finite, skipping backward, loss={loss}")
-                    print(f"experience.advantages={exp.advantages}")
+                    dashboard.log(
+                        f"step {k}: non-finite loss={loss}, advantages={exp.advantages}"
+                    )
+                    metric_logger.log(
+                        "skip_update",
+                        step=k,
+                        reason="non_finite_loss",
+                        loss=str(loss),
+                    )
                     continue
 
                 loss.backward()
                 grad_norm = clip_grad_norm_(model.parameters(), max_norm=max_norm)
                 if not torch.isfinite(grad_norm):
-                    print(f"Gradient norm not finite, skipping optimizer step, grad_norm={grad_norm}")
+                    dashboard.log(
+                        f"step {k}: non-finite grad norm={grad_norm}, skipped optimizer step"
+                    )
+                    metric_logger.log(
+                        "skip_update",
+                        step=k,
+                        reason="non_finite_grad_norm",
+                        grad_norm=str(grad_norm),
+                    )
                     optimizer.zero_grad(set_to_none=True)
                     continue
-                print(f"{step_epoch}: dgpo_score={metrics['dgpo_score_mean']:.4f}, grad_norm={grad_norm:.4f}")
-                wandb.log({"dgpo_score": metrics['dgpo_score_mean'], "grad_norm": grad_norm})
+                dashboard.record_update(
+                    step=k,
+                    loss=loss.item(),
+                    dgpo_score=train_metrics["dgpo_score_mean"],
+                    grad_norm=grad_norm.item(),
+                )
+                metric_logger.log(
+                    "update",
+                    step=k,
+                    epoch=step_epoch,
+                    loss=float(loss.item()),
+                    dgpo_score=float(train_metrics["dgpo_score_mean"]),
+                    grad_norm=float(grad_norm.item()),
+                )
+                wandb.log({"dgpo_score": train_metrics['dgpo_score_mean'], "grad_norm": grad_norm})
 
                 optimizer.step()
 
